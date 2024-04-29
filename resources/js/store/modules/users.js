@@ -17,7 +17,7 @@ const state = {
   filters: {
     order: 'desc',
     orderBy: null,
-    search: null
+    search: null,
   },
 }
 
@@ -31,30 +31,36 @@ const mutations = {
 
 const actions = {
   getHeaders() {
-    return  {
+    return {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }
+      },
     }
   },
 
   async [REQUEST_GET_USERS]({ commit }) {
     return new Promise((resolve) => {
-      commit(UPDATE_LOADING_STATE, { show: true })
+      commit(UPDATE_LOADING_STATE, {
+        show: true,
+      })
       axios
         .get('/api/user', actions.getHeaders())
         .then((res) => {
           console.log(res)
-          commit(UPDATE_USERS_STATE, { 
-            users: res.data.users
+          commit(UPDATE_USERS_STATE, {
+            users: res.data.users,
           })
-          commit(UPDATE_LOADING_STATE, { show: false })
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
           resolve(res)
         })
         .catch((err) => {
           console.log(err.response)
           handleErr(err)
-          commit(UPDATE_LOADING_STATE, { show: false })
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
           resolve(err.response)
         })
     })
@@ -62,22 +68,29 @@ const actions = {
 
   async [REQUEST_UPLOAD_USERS]({ commit }, params) {
     return new Promise((resolve) => {
-      commit(UPDATE_LOADING_STATE, { show: true })
-      axios.post('/api/user/import', params, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          ...actions.getHeaders().headers
-        }
+      commit(UPDATE_LOADING_STATE, {
+        show: true,
       })
-        .then(res => {
+      axios
+        .post('/api/user/import', params, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            ...actions.getHeaders().headers,
+          },
+        })
+        .then((res) => {
           // console.log(res);
-          commit(UPDATE_LOADING_STATE, { show: false })
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
           resolve(res)
         })
-        .catch(err => {
+        .catch((err) => {
           // console.log(err.response)
           handleErr(err)
-          commit(UPDATE_LOADING_STATE, { show: false })
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
           resolve(err.response)
         })
     })
@@ -85,17 +98,24 @@ const actions = {
 
   async [REQUEST_CREATE_USER]({ commit }, params) {
     return new Promise((resolve) => {
-      commit(UPDATE_LOADING_STATE, { show: true })
-      axios.post('/api/user', params, actions.getHeaders())
-        .then(res => {
+      commit(UPDATE_LOADING_STATE, {
+        show: true,
+      })
+      axios
+        .post('/api/user', params, actions.getHeaders())
+        .then((res) => {
           // console.log(res);
-          commit(UPDATE_LOADING_STATE, { show: false })
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
           resolve(res)
         })
-        .catch(err => {
+        .catch((err) => {
           // console.log(err.response)
           handleErr(err)
-          commit(UPDATE_LOADING_STATE, { show: false })
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
           resolve(err.response)
         })
     })
@@ -103,17 +123,24 @@ const actions = {
 
   async [REQUEST_UPDATE_USER]({ commit }, params) {
     return new Promise((resolve) => {
-      commit(UPDATE_LOADING_STATE, { show: true })
-      axios.patch(`/api/user/${params.id}`, params.data, actions.getHeaders())
-        .then(res => {
-          console.log(res);
-          commit(UPDATE_LOADING_STATE, { show: false })
+      commit(UPDATE_LOADING_STATE, {
+        show: true,
+      })
+      axios
+        .patch(`/api/user/${params.id}`, params.data, actions.getHeaders())
+        .then((res) => {
+          console.log(res)
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
           resolve(res)
         })
-        .catch(err => {
+        .catch((err) => {
           // console.log(err.response)
           handleErr(err)
-          commit(UPDATE_LOADING_STATE, { show: false })
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
           resolve(err.response)
         })
     })
@@ -121,16 +148,23 @@ const actions = {
 
   async [REQUEST_DELETE_USER]({ commit }, params) {
     return new Promise((resolve) => {
-      commit(UPDATE_LOADING_STATE, { show: true })
-      axios.delete(`/api/user/${params.id}`, actions.getHeaders())
-        .then(res => {
+      commit(UPDATE_LOADING_STATE, {
+        show: true,
+      })
+      axios
+        .delete(`/api/user/${params.id}`, actions.getHeaders())
+        .then((res) => {
           // console.log(res);
-          commit(UPDATE_LOADING_STATE, { show: false })
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
           resolve(res)
         })
-        .catch(err => {
+        .catch((err) => {
           // console.log(err.response)
-          commit(UPDATE_LOADING_STATE, { show: false })
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
           resolve(err.response)
         })
     })
@@ -146,4 +180,9 @@ const handleErr = (err) => {
   }
 }
 
-export default { state, getters, mutations, actions }
+export default {
+  state,
+  getters,
+  mutations,
+  actions,
+}

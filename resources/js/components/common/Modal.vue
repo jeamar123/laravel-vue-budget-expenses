@@ -3,7 +3,7 @@
     <Dialog
       as="div"
       open
-      class="fixed top-0 -left-[2px] z-[4] h-screen w-full overflow-y-auto"
+      class="fixed top-0 -left-[2px] z-[5] h-screen w-full overflow-y-auto"
       @close="emit('close')"
     >
       <TransitionChild
@@ -15,7 +15,9 @@
         leave-from="opacity-100"
         leave-to="opacity-0"
       >
-        <DialogOverlay class="fixed top-0 left-0 h-full w-full bg-black bg-opacity-50" />
+        <DialogOverlay
+          class="fixed top-0 left-0 h-full w-full bg-black bg-opacity-50"
+        />
       </TransitionChild>
 
       <TransitionChild
@@ -32,13 +34,13 @@
             class="flex min-h-screen justify-center pl-1 py-2 md:py-10"
             :class="{
               'items-start': verticalPosition === 'top',
-              'items-center': verticalPosition === 'center'
+              'items-center': verticalPosition === 'center',
             }"
           >
             <div
               :class="[
                 'relative w-[99%] md:w-full lg:max-w-[500px] bg-white shadow-md rounded-lg',
-                wrapperClass
+                wrapperClass,
               ]"
             >
               <slot v-if="showHeader" name="header">
@@ -55,26 +57,28 @@
                 </div>
               </slot>
 
-              <div :class="['px-4 pt-4 pb-8', bodyClass]">
-                <slot />
-              </div>
-
-              <slot v-if="showFooter" name="footer">
-                <div
-                  class="flex items-center justify-end gap-x-4 p-4"
-                  :class="{
-                    'justify-end': footerButtonsAlignment === 'right',
-                    'justify-center': footerButtonsAlignment === 'center',
-                    'justify-start': footerButtonsAlignment === 'left'
-                  }"
-                >
-                  <Button variant="blank" @click="emit('close')">
-                    {{ closeButtonText }}
-                  </Button>
-                  <Button @click="emit('confirm')">
-                    {{ confirmButtonText }}
-                  </Button>
+              <slot name="body-footer">
+                <div :class="['px-4 pt-4 pb-8', bodyClass]">
+                  <slot />
                 </div>
+
+                <slot v-if="showFooter" name="footer">
+                  <div
+                    class="flex items-center justify-end gap-x-4 p-4"
+                    :class="{
+                      'justify-end': footerButtonsAlignment === 'right',
+                      'justify-center': footerButtonsAlignment === 'center',
+                      'justify-start': footerButtonsAlignment === 'left',
+                    }"
+                  >
+                    <Button variant="blank" @click="emit('close')">
+                      {{ closeButtonText }}
+                    </Button>
+                    <Button @click="emit('confirm')">
+                      {{ confirmButtonText }}
+                    </Button>
+                  </div>
+                </slot>
               </slot>
             </div>
           </div>
@@ -85,57 +89,62 @@
 </template>
 
 <script setup lang="ts">
-import { TransitionRoot, TransitionChild, Dialog, DialogOverlay } from '@headlessui/vue'
+import {
+  TransitionRoot,
+  TransitionChild,
+  Dialog,
+  DialogOverlay,
+} from '@headlessui/vue'
 import { Button, Heading } from '@/components/common'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 
 defineProps({
   show: {
     type: Boolean,
-    default: false
+    default: false,
   },
   title: {
     type: String,
-    default: ''
+    default: '',
   },
   bodyClass: {
     type: String,
-    default: ''
+    default: '',
   },
   wrapperClass: {
     type: String,
-    default: ''
+    default: '',
   },
   verticalPosition: {
     type: String,
-    default: 'center' // top, center
+    default: 'center', // top, center
   },
 
   showHeader: {
     type: Boolean,
-    default: true
+    default: true,
   },
   headerClass: {
     type: String,
-    default: ''
+    default: '',
   },
 
   showFooter: {
     type: Boolean,
-    default: true
+    default: true,
   },
   footerButtonsAlignment: {
     type: String,
-    default: 'right' // left, center, right
+    default: 'right', // left, center, right
   },
   closeButtonText: {
     type: String,
-    default: 'Cancel'
+    default: 'Cancel',
   },
   confirmButtonText: {
     type: String,
-    default: 'Confirm'
-  }
+    default: 'Confirm',
+  },
 })
 
 const emit = defineEmits(['close', 'confirm'])

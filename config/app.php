@@ -162,6 +162,7 @@ return [
 
         // Modules
         App\Modules\User\Providers\RouteServiceProvider::class,
+        App\Modules\Transaction\Providers\RouteServiceProvider::class,
 
         /*
          * Application Service Providers...

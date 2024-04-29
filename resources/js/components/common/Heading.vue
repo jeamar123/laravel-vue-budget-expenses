@@ -8,8 +8,8 @@
 const props = defineProps({
   as: {
     type: String,
-    default: 'h1'
-  }
+    default: 'h1',
+  },
 })
 
 const getClasses = () => {
@@ -24,7 +24,10 @@ const getClasses = () => {
       classes = 'text-lg'
       break
     case 'h4':
-      classes = 'text-lg'
+      classes = 'text-base'
+      break
+    case 'h5':
+      classes = 'text-sm'
       break
     case 'h1':
     default:

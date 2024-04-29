@@ -1,0 +1,86 @@
+# AirLST Centerstage
+
+[![Laravel Forge Site Deployment Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2F728e84e8-8c12-440b-8817-857a951dbf2c&style=plastic)](https://forge.laravel.com)
+
+## Installation
+
+### Using laravel sail over Orbstack
+
+A full configuration was made for Centerstage application work out of the box using Orbstack, with both Core and Centerstage applications running over Orbstack there are minimal settings to change
+in order to make them work together.
+
+#### Requirements
+
+- Orbstack must be installed `brew install orbstack`
+-
+
+#### Configuration
+
+1. Core Project
+    1. Add or update the following environment variables:
+       ```dotenv
+       SERVICE_NAME=airlst-core
+       COMPOSE_PROJECT_NAME=airlst-core
+       CENTERSTAGE_BASE_URL=http://app.airlst-centerstage.orb.local
+       SESSION_SECURE_COOKIE=false
+       ```
+    2. Set network property in Core project's `docker-compose.yml`
+        ```yaml
+        networks:
+          sail:
+            driver: bridge
+            ipam:
+              driver: default
+              config:
+               - subnet: 192.168.158.0/24
+       ```
+       > This is a temporary local solution until we agree a way to handle routing with Core Team
+    3. Now you are good to run `sail up -d`
+2. Centerstage Project
+    1. Copy the `.env.orbstack.example` content into `.env` file.
+    2. Make sure the following env variables has the same value in Centerstage and Core respectively:
+        1. `WEBHOOK_CLIENT_SECRET` in Centerstage must be the same as `CENTERSTAGE_OUTGOING_WEBHOOKS_SECRET` in Core.
+        2. `CENTERSTAGE_API_REQUEST_SECRET` in Centerstage must be the as `CENTERSTAGE_BACKEND_REQUEST_SECRET` in Core
+
+#### Commands
+
+For centerstage run the following installation commands
+
+```shell
+composer install
+sail up -d
+sail npm install && sail npm run prod 
+sail artisan migrate:fresh --seed
+```
+
+For Core Project, please follow instructions in airlst-core repository.
+
+####      
+
+At this point application should be running on `http://laravel.test.airlst-core.orb.local/`
+
+#### Troubleshooting
+
+##### Error response from daemon: Address already in use
+
+Change `IP_ADDRESS` variable to use a different address between `192.168.158.1` and `192.168.158.254` which corresponds to the subnet mask which is set.
+
+### Using laravel Valet or Herd
+
+Pending...
+
+## Services
+
+### Websockets
+
+Pending...
+
+### Queue
+
+Pending...
+
+### Translations
+
+For this project and all Centerstage Core environment translations are being done in
+the  [Airlst Translations Spreasheet](https://airlst.sharepoint.com/:x:/s/public.airlst/EZRPn6yDxL5PsXzAWmWNhI4BOxqdZerh5TeRosgWcjAOdQ?e=fy8bwc)
+This will be sync in the deployment pipeline.

@@ -10,10 +10,32 @@ use App\Modules\User\Http\Controllers\LoginUserController;
 use App\Modules\User\Http\Controllers\CurrentUserController;
 use App\Modules\User\Http\Controllers\ImportUserController;
 
+use App\Modules\User\Http\Controllers\Account\ListAccountsController;
+use App\Modules\User\Http\Controllers\Account\CreateAccountController;
+use App\Modules\User\Http\Controllers\Account\UpdateAccountController;
+use App\Modules\User\Http\Controllers\Account\DeleteAccountController;
+
 use App\Modules\User\Models\User;
+use App\Modules\User\Models\Account;
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    Route::group(['prefix' => 'account'], function () {
+        Route::get('/', ListAccountsController::class)
+            ->name('user.account.list');
+        Route::post('/', CreateAccountController::class)
+            ->name('acount.create')
+            ->can('create', Account::class);
+        Route::patch('/{account}', UpdateAccountController::class)
+            ->name('account.update')
+            ->can('update', Account::class);
+        Route::delete('/{account}', DeleteAccountController::class)
+            ->name('account.delete')
+            ->can('delete', Account::class);
+    }); 
+
+
     Route::get('/', ListUsersController::class)
         ->name('user.list')
         ->can('list', User::class);
@@ -37,6 +59,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         ->can('delete', 'user');
 });
 
-
-
-Route::post('/login', LoginUserController::class)->name('user.login');
+Route::post('/login', LoginUserController::class)
+    ->name('user.login');

@@ -4,10 +4,18 @@
 
     <div class="space-y-5">
       <Heading as="h3" class="font-semibold underline">Headings</Heading>
-      <Heading as="h1">H1 - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Heading>
-      <Heading as="h2">H2 - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Heading>
-      <Heading as="h3">H3 - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Heading>
-      <Heading as="h4">H4 - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Heading>
+      <Heading as="h1"
+        >H1 - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Heading
+      >
+      <Heading as="h2"
+        >H2 - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Heading
+      >
+      <Heading as="h3"
+        >H3 - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Heading
+      >
+      <Heading as="h4"
+        >H4 - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Heading
+      >
     </div>
 
     <div class="space-y-5">
@@ -33,11 +41,12 @@
         @confirm="isModalShown = false"
       >
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus bibendum nisi
-          tincidunt bibendum. Pellentesque erat lorem, tincidunt quis lacus eget, suscipit imperdiet
-          velit. Maecenas aliquam tortor quam, sed tincidunt turpis tristique non. Donec ultricies
-          ultrices lacus ut ullamcorper. Vestibulum nisi erat, malesuada in sem in, consectetur
-          rhoncus arcu.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+          maximus bibendum nisi tincidunt bibendum. Pellentesque erat lorem,
+          tincidunt quis lacus eget, suscipit imperdiet velit. Maecenas aliquam
+          tortor quam, sed tincidunt turpis tristique non. Donec ultricies
+          ultrices lacus ut ullamcorper. Vestibulum nisi erat, malesuada in sem
+          in, consectetur rhoncus arcu.
         </p>
       </Modal>
     </div>
@@ -47,7 +56,11 @@
       <p class="">Click the button to show Alert.</p>
       <Button @click="isAlertShown = true">Click me</Button>
 
-      <Alert :show="isAlertShown" @close="isAlertShown = false" @confirm="isAlertShown = false" />
+      <Alert
+        :show="isAlertShown"
+        @close="isAlertShown = false"
+        @confirm="isAlertShown = false"
+      />
     </div>
 
     <div class="space-y-2">
@@ -55,11 +68,12 @@
       <Card>
         <Heading as="h2" class="mb-3">Heading</Heading>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent maximus bibendum nisi
-          tincidunt bibendum. Pellentesque erat lorem, tincidunt quis lacus eget, suscipit imperdiet
-          velit. Maecenas aliquam tortor quam, sed tincidunt turpis tristique non. Donec ultricies
-          ultrices lacus ut ullamcorper. Vestibulum nisi erat, malesuada in sem in, consectetur
-          rhoncus arcu.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+          maximus bibendum nisi tincidunt bibendum. Pellentesque erat lorem,
+          tincidunt quis lacus eget, suscipit imperdiet velit. Maecenas aliquam
+          tortor quam, sed tincidunt turpis tristique non. Donec ultricies
+          ultrices lacus ut ullamcorper. Vestibulum nisi erat, malesuada in sem
+          in, consectetur rhoncus arcu.
         </p>
       </Card>
     </div>
@@ -68,30 +82,38 @@
       <Heading as="h3" class="font-semibold underline">HeroIcons</Heading>
       <div class="flex gap-x-5 text-center text-[10px] leading-[1.3]">
         <div class="flex flex-col gap-y-1 items-center">
-          <CubeIconOutline class="w-8" /> <span>CubeIcon<br />Outline</span>
+          <CubeIconOutline class="w-8" />
+          <span>CubeIcon<br />Outline</span>
         </div>
         <div class="flex flex-col gap-y-1 items-center">
-          <EnvelopeIconOutline class="w-8" /> <span>EnvelopeIcon<br />Outline</span>
+          <EnvelopeIconOutline class="w-8" />
+          <span>EnvelopeIcon<br />Outline</span>
         </div>
         <div class="flex flex-col gap-y-1 items-center">
-          <FolderIconOutline class="w-8" /> <span>FolderIcon<br />Outline</span>
+          <FolderIconOutline class="w-8" />
+          <span>FolderIcon<br />Outline</span>
         </div>
         <div class="flex flex-col gap-y-1 items-center">
-          <HomeIconOutline class="w-8" /> <span>HomeIcon<br />Outline</span>
+          <HomeIconOutline class="w-8" />
+          <span>HomeIcon<br />Outline</span>
         </div>
       </div>
       <div class="flex gap-x-5 text-center text-[10px] leading-[1.3]">
         <div class="flex flex-col gap-y-1 items-center">
-          <CubeIconSolid class="w-8" /> <span>CubeIcon<br />Solid</span>
+          <CubeIconSolid class="w-8" />
+          <span>CubeIcon<br />Solid</span>
         </div>
         <div class="flex flex-col gap-y-1 items-center">
-          <EnvelopeIconSolid class="w-8" /> <span>EnvelopeIcon<br />Solid</span>
+          <EnvelopeIconSolid class="w-8" />
+          <span>EnvelopeIcon<br />Solid</span>
         </div>
         <div class="flex flex-col gap-y-1 items-center">
-          <FolderIconSolid class="w-8" /> <span>FolderIcon<br />Solid</span>
+          <FolderIconSolid class="w-8" />
+          <span>FolderIcon<br />Solid</span>
         </div>
         <div class="flex flex-col gap-y-1 items-center">
-          <HomeIconSolid class="w-8" /> <span>HomeIcon<br />Solid</span>
+          <HomeIconSolid class="w-8" />
+          <span>HomeIcon<br />Solid</span>
         </div>
       </div>
     </div>
@@ -105,18 +127,25 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Card, Heading, Button, Modal, Alert, Loading } from '@/components/common'
+import {
+  Card,
+  Heading,
+  Button,
+  Modal,
+  Alert,
+  Loading,
+} from '@/components/common'
 import {
   CubeIcon as CubeIconOutline,
   EnvelopeIcon as EnvelopeIconOutline,
   FolderIcon as FolderIconOutline,
-  HomeIcon as HomeIconOutline
+  HomeIcon as HomeIconOutline,
 } from '@heroicons/vue/24/outline'
 import {
   CubeIcon as CubeIconSolid,
   EnvelopeIcon as EnvelopeIconSolid,
   FolderIcon as FolderIconSolid,
-  HomeIcon as HomeIconSolid
+  HomeIcon as HomeIconSolid,
 } from '@heroicons/vue/24/solid'
 
 const isModalShown = ref(false)

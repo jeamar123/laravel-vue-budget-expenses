@@ -11,18 +11,14 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'name' => $this->resource->getAttribute('name'),
-            'email' => $this->resource->getAttribute('email'),
-            'phone' => $this->resource->getAttribute('phone'),
-            'website' => $this->resource->getAttribute('website'),
-            'rating' => $this->resource->getAttribute('rating'),
-            'description' => $this->resource->getAttribute('description'),
-            'address' => $this->resource->getAttribute('address'),
-            'image' => $this->resource->getAttribute('image'),
-            'latitude' => $this->resource->getAttribute('latitude'),
-            'longitude' => $this->resource->getAttribute('longitude'),
-            'other_details' => $this->resource->getAttribute('other_details'),
-            'created_at' => $this->resource->getAttribute('created_at'),
+            'first_name' => $this->resource->first_name,
+            'last_name' => $this->resource->last_name,
+            'email' => $this->resource->email,
+            'username' => $this->resource->username,
+            'role' => $this->resource->role,
+            'status' => $this->resource->status,
+            'image' => $this->resource->image,
+            'created_at' => $this->resource->created_at,
         ];
     }
 }

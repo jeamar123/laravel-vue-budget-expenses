@@ -1,7 +1,10 @@
 <template>
   <component
     :is="as"
-    :class="[getClasses()]" :disabled="variant === 'disabled' || disabled">
+    :class="[getClasses()]"
+    :disabled="variant === 'disabled' || disabled"
+    :type="type"
+  >
     <slot />
   </component>
 </template>
@@ -10,20 +13,25 @@
 const props = defineProps({
   as: {
     type: String,
-    default: 'button' // button, link, router-link
+    default: 'button', // button, link, router-link
+  },
+  type: {
+    type: String,
+    default: 'button', // button, submit
   },
   variant: {
     type: String,
-    default: 'primary' // primary, secondary, outline, disabled
+    default: 'primary', // primary, secondary, outline, disabled
   },
   disabled: {
     type: Boolean,
-    default: () => false
-  }
+    default: () => false,
+  },
 })
 
 const getClasses = () => {
-  let defaultClasses = 'inline-block py-3 px-6 rounded-lg border text-sm hover:opacity-90'
+  let defaultClasses =
+    'inline-block py-2 px-5 rounded-lg border text-sm hover:opacity-90 outline-none'
   let classes = ''
 
   switch (props.variant) {
@@ -34,7 +42,8 @@ const getClasses = () => {
       classes = 'border-2 border-primary text-primary'
       break
     case 'disabled':
-      classes = 'bg-[#256da1] border-[#256da1] text-white cursor-not-allowed opacity-70 hover:opacity-70'
+      classes =
+        'bg-[#256da1] border-[#256da1] text-white cursor-not-allowed opacity-70 hover:opacity-70'
       break
     case 'blank':
       classes = 'border-none !p-2'

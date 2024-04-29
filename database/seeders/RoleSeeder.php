@@ -17,7 +17,19 @@ class RoleSeeder extends Seeder
         'activity_log:view',
         'activity_log:create',
         'activity_log:update',
-        'activity_log:delete'
+        'activity_log:delete',
+        'transaction:view',
+        'transaction:create',
+        'transaction:update',
+        'transaction:delete',
+        'category:view',
+        'category:create',
+        'category:update',
+        'category:delete',
+        'account:view',
+        'account:create',
+        'account:update',
+        'account:delete',
     ];
 
     protected const ROLES = [
@@ -31,11 +43,35 @@ class RoleSeeder extends Seeder
             'activity_log:create',
             'activity_log:update',
             'activity_log:delete',
+            'transaction:view',
+            'transaction:create',
+            'transaction:update',
+            'transaction:delete',
+            'category:view',
+            'category:create',
+            'category:update',
+            'category:delete',
+            'account:view',
+        'account:create',
+        'account:update',
+        'account:delete',
         ],
         // Role::USER->value => [
         'user' => [
             'user:view',
             'user:update',
+            'transaction:view',
+            'transaction:create',
+            'transaction:update',
+            'transaction:delete',
+            'category:view',
+            'category:create',
+            'category:update',
+            'category:delete',
+            'account:view',
+            'account:create',
+            'account:update',
+            'account:delete',
         ]
     ];
 

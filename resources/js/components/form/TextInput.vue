@@ -4,7 +4,12 @@
       <label
         v-if="label"
         class="text-sm block mb-1"
-        :class="[{ 'text-gray-500 cursor-not-allowed': readOnly }, labelClass]"
+        :class="[
+          {
+            'text-gray-500 cursor-not-allowed': readOnly,
+          },
+          labelClass,
+        ]"
         :for="id"
         >{{ label }}<span v-if="required">*</span></label
       >
@@ -14,11 +19,11 @@
         :value="modelValue"
         :type="type"
         :placeholder="placeholder"
-        class="w-full rounded border-2 border-form-border p-2 outline-none text-sm read-only:border-gray-200 read-only:text-gray-500 read-only:cursor-not-allowed block autofill:!bg-white transition-all bg-slate-100 text-slate-800"
+        class="w-full border-b border-form-border px-1 pt-1 pb-2 outline-none text-sm read-only:border-gray-200 read-only:text-gray-500 read-only:cursor-not-allowed block autofill:!bg-white transition-all bg-white text-slate-800"
         :class="[
           !readOnly ? 'focus:border-gray-900' : '',
           errors.length ? 'border-red-500' : '',
-          inputClass
+          inputClass,
         ]"
         :readonly="readOnly"
         @input="(e) => emit('update:model-value', e.target.value)"
@@ -26,7 +31,11 @@
     </div>
     <template v-if="errors.length">
       <div class="mt-1">
-        <p v-for="error in errors" :key="error" class="text-red-500 block text-xs">
+        <p
+          v-for="error in errors"
+          :key="error"
+          class="text-red-500 block text-xs"
+        >
           {{ error }}
         </p>
       </div>
@@ -38,52 +47,56 @@
 defineProps({
   as: {
     type: String,
-    default: 'input' // input, textarea
+    default: 'input', // input, textarea
   },
   id: {
     type: String,
-    default: ''
+    default: '',
+  },
+  name: {
+    type: String,
+    default: '',
   },
   label: {
     type: String,
-    default: ''
+    default: '',
   },
   type: {
     type: String,
-    default: 'text' // text, number, date, password
+    default: 'text', // text, number, date, password
   },
   modelValue: {
     type: [String, Number],
-    default: ''
+    default: '',
   },
   placeholder: {
     type: String,
-    default: ''
+    default: '',
   },
   readOnly: {
     type: Boolean,
-    default: () => false
+    default: () => false,
   },
   required: {
     type: Boolean,
-    default: () => false
+    default: () => false,
   },
   errors: {
     type: Array,
-    default: () => []
+    default: () => [],
   },
   wrapperClass: {
     type: [String, Object, Array],
-    default: ''
+    default: '',
   },
   labelClass: {
     type: [String, Object, Array],
-    default: ''
+    default: '',
   },
   inputClass: {
     type: [String, Object, Array],
-    default: ''
-  }
+    default: '',
+  },
 })
 
 const emit = defineEmits(['update:model-value'])

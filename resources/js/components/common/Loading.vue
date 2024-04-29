@@ -2,14 +2,14 @@
   <div
     class="z-50 flex h-full w-full items-center justify-center"
     :class="{
-      'fixed top-0 left-0 bg-[rgba(0,0,0,0.3)]': placement === 'external'
+      'fixed top-0 left-0 bg-[rgba(0,0,0,0.3)]': placement === 'external',
     }"
   >
     <div
       class="rounded-md px-6 py-3 text-center text-xs"
       :class="{
         'bg-white': placement === 'external',
-        '': placement === 'internal'
+        '': placement === 'internal',
       }"
     >
       <slot name="icon">
@@ -36,9 +36,9 @@
         </svg> -->
 
         <svg
+          id="L3"
           class="w-20 h-20 mb-3"
           version="1.1"
-          id="L3"
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px"
@@ -87,7 +87,7 @@
 defineProps({
   placement: {
     type: String,
-    default: 'external'
-  }
+    default: 'external',
+  },
 })
 </script>

@@ -18,7 +18,12 @@
       <Heading as="h3" class="font-semibold underline">Textarea</Heading>
 
       <div class="flex items-center gap-x-5">
-        <TextInput as="textarea" label="Address" class="w-full" input-class="h-20" />
+        <TextInput
+          as="textarea"
+          label="Address"
+          class="w-full"
+          input-class="h-20"
+        />
       </div>
     </div>
 
@@ -26,7 +31,10 @@
       <Heading as="h3" class="font-semibold underline">Checkbox</Heading>
 
       <div class="flex items-center gap-x-5">
-        <Checkbox id="lorem1" label="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
+        <Checkbox
+          id="lorem1"
+          label="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        />
       </div>
     </div>
 
@@ -55,13 +63,12 @@
     <div class="space-y-5">
       <Heading as="h3" class="font-semibold underline">Select Dropdown</Heading>
 
-      <SelectDropdown :items="['Apple', 'Banana', 'Carrots', 'Durian']" />
+      <SelectInput :items="['Apple', 'Banana', 'Carrots', 'Durian']" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Heading } from '@/components/common'
-import { TextInput, Checkbox, Radio, SelectDropdown } from '@/components/form'
+import { TextInput, Checkbox, Radio, SelectInput } from '@/components/form'
 </script>

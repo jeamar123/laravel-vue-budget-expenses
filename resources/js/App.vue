@@ -1,13 +1,21 @@
 <template>
-  <main class="flex flex-col h-screen font-sans text-sm text-slate-300 bg-slate-900">
-    <Header />
+  <!-- <main class="flex flex-row h-screen font-sans text-sm text-slate-950 bg-[#F5F8FB]">
+    <Sidemenu />
     
-    <div class="container flex-1 overflow-y-auto py-12">
-      <router-view></router-view>
+    <div class="flex-1 flex flex-col">
+      <Header />
+      <div class="overflow-y-auto max-h-[100vh-58px]">
+        <router-view></router-view>
+      </div>
     </div>
-  </main>
+  </main> -->
+  <Default v-if="$route.meta.auth" />
+  <Guest v-else />
 </template>
 
 <script setup>
-import Header from '@/components/Header.vue'
+// import Sidemenu from '@/components/Sidemenu.vue'
+// import Header from '@/components/Header.vue'
+
+import { Default, Guest } from '@/layouts'
 </script>

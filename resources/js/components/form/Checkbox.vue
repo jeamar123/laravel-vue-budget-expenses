@@ -1,14 +1,23 @@
 <template>
   <div>
     <div :class="wrapperClass">
-      <label :for="id" class="relative flex items-start gap-x-2 leading-[1.3]">
+      <label
+        :for="id"
+        class="relative flex items-start gap-x-2 leading-[1.3] cursor-pointer"
+      >
         <input
-          type="checkbox"
           :id="id"
-          class="relative peer shrink-0 appearance-none w-5 h-5 border-2 border-form-border rounded-sm bg-white checked:bg-primary checked:border-primary focus:outline-none focus:ring-offset-0 focus:ring-2 focus:ring-blue-100 transition-all"
+          type="checkbox"
+          class="relative peer shrink-0 appearance-none w-5 h-5 border border-form-border rounded bg-white checked:bg-primary checked:border-primary focus:outline-none focus:ring-offset-0 focus:ring-2 focus:ring-blue-100 transition-all cursor-pointer"
           :class="[!readOnly ? '' : '', errors.length ? '' : '', inputClass]"
           :readonly="readOnly"
-          @change="({ target }) => emit('update:model-value', target.checked)"
+          :checked="checked"
+          @change="
+            ({ target }) => {
+              emit('update:model-value', target.checked)
+              emit('change', target.checked)
+            }
+          "
         />
         <svg
           class="absolute top-[2px] left-[2px] w-4 h-4 hidden peer-checked:block pointer-events-none"
@@ -23,12 +32,16 @@
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
 
-        {{ label }}
+        <span v-if="label">{{ label }}</span>
       </label>
     </div>
     <template v-if="errors.length">
       <div class="mt-1">
-        <p v-for="error in errors" :key="error" class="text-red-500 block text-xs">
+        <p
+          v-for="error in errors"
+          :key="error"
+          class="text-red-500 block text-xs"
+        >
           {{ error }}
         </p>
       </div>
@@ -40,41 +53,45 @@
 defineProps({
   id: {
     type: String,
-    default: ''
+    default: '',
   },
   label: {
     type: String,
-    default: ''
+    default: '',
   },
   modelValue: {
     type: [String, Number],
-    default: ''
+    default: '',
+  },
+  checked: {
+    type: Boolean,
+    default: () => false,
   },
   readOnly: {
     type: Boolean,
-    default: () => false
+    default: () => false,
   },
   required: {
     type: Boolean,
-    default: () => false
+    default: () => false,
   },
   errors: {
     type: Array,
-    default: () => []
+    default: () => [],
   },
   wrapperClass: {
     type: [String, Object, Array],
-    default: ''
+    default: '',
   },
   labelClass: {
     type: [String, Object, Array],
-    default: ''
+    default: '',
   },
   inputClass: {
     type: [String, Object, Array],
-    default: ''
-  }
+    default: '',
+  },
 })
 
-const emit = defineEmits(['update:model-value'])
+const emit = defineEmits(['update:model-value', 'change'])
 </script>

@@ -2,6 +2,7 @@
   <div>
     <Dropdown
       v-model="selectedAction"
+      class="min-w-0 md:min-w-16 w-max md:w-auto"
       placeholder="Actions"
       fixed-placeholder
       :items="['delete']"

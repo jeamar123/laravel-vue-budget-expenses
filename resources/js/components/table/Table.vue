@@ -84,28 +84,28 @@
                     "
                   />
                 </td>
+                <!-- typeof row[col.key] === 'number' && (
+                      row[col.key] < 0 ? 'font-medium text-red-600' : 'font-medium text-green-600'
+                    ) -->
                 <td
                   v-for="col in headers"
                   :key="col.id"
                   class="py-3 whitespace-nowrap group-even:bg-gray-50"
                   :class="[
                     showCheckbox ? 'px-2' : 'px-2 first:pl-4 first:pr-2',
-                    typeof row[col.key] === 'number' && (
-                      row[col.key] < 0 ? 'font-medium text-red-600' : 'font-medium text-green-600'
-                    )
                   ]"
                 >
                   <span v-if="['created_at', 'date'].includes(col.key)">{{
                     format(row[col.key], 'MMM dd yyyy')
                   }}</span>
-                  <!-- <span
-                    v-else-if="['total', 'amount'].includes(col.key)"
+                  <span
+                    v-else-if="['total', 'amount', 'remaining'].includes(col.key)"
                     class=""
                     :class="
-                      row[col.key] < 0 ? 'text-red-600' : 'text-green-900'
+                      row[col.key] < 0 ? 'font-medium text-red-600' : 'font-medium text-green-900'
                     "
                     >{{ formatNumber(row[col.key]) }}</span
-                  > -->
+                  >
                   <span
                     v-else-if="typeof row[col.key] === 'number'"
                     >{{ formatNumber(row[col.key]) }}</span

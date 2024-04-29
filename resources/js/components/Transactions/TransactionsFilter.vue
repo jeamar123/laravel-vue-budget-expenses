@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div class="flex flex-col md:flex-row gap-y-2 gap-x-4 md:items-center">
     <Dropdown
       v-model="selectedView"
+      class="w-max md:w-auto"
       :items="['daily', 'monthly', 'calendar']"
       @update:model-value="emitChanges"
     />

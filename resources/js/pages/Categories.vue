@@ -1,5 +1,5 @@
 <template>
-  <div class="py-5 px-4 lg:px-8 grid md:grid-cols-2 gap-y-5 gap-x-10">
+  <div class="py-2 lg:py-5 px-2 lg:px-8 grid md:grid-cols-2 gap-y-5 gap-x-10">
     <Expenses />
     <Income />
   </div>

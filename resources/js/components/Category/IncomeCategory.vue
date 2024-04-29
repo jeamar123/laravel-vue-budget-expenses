@@ -82,7 +82,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { Card, Button, Heading, Icon } from '@/components/common'
 import { Table } from '@/components/table'
 import {

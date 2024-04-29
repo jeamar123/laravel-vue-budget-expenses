@@ -1,6 +1,6 @@
 <template>
   <main
-    class="flex flex-col lg:flex-row lg:h-screen font-sans text-sm text-slate-950 bg-[#F5F8FB]"
+    class="flex flex-col lg:flex-row h-screen font-sans text-sm text-slate-950 bg-[#F5F8FB]"
   >
     <Sidemenu />
 

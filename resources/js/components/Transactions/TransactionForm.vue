@@ -19,12 +19,21 @@
         label="Note"
         :errors="form.errors?.description"
       />
-      <SelectInput
-        v-model="form.category"
-        label="Category"
-        :items="categories.filter(({ type }) => type === form.type)"
-        :errors="form.errors?.category"
-      />
+      <div>
+        <SelectInput
+          v-model="form.category"
+          label="Category"
+          :items="categories.filter(({ type }) => type === form.type)"
+          :errors="form.errors?.category"
+        />
+        <button
+          type="button"
+          class="mt-1 text-xs underline text-blue-600 ml-auto block"
+          @click="isCreateCategoryShown = true"
+        >
+          Add new category
+        </button>
+      </div>
       <SelectInput
         v-model="form.source"
         label="Source"
@@ -38,11 +47,23 @@
       />
     </div>
 
-    <div class="flex items-center justify-end gap-x-4 p-4">
+    <div class="flex items-center justify-end gap-x-4 p-4 border-t">
       <Button variant="blank" @click="emit('close')"> Cancel </Button>
       <Button type="submit"> Submit </Button>
     </div>
   </form>
+
+  <CreateCategoryModal
+    :show="isCreateCategoryShown"
+    :type="form.type"
+    @close="isCreateCategoryShown = false"
+    @success="
+      () => {
+        dispatch('REQUEST_GET_CATEGORY')
+        isCreateCategoryShown = false
+      }
+    "
+  />
 </template>
 
 <script setup>
@@ -51,6 +72,7 @@ import { Button } from '@/components/common'
 import { TextInput, SelectInput, DatepickerInput } from '@/components/form'
 import { useStore } from 'vuex'
 import { format } from '@/composables/date'
+import { CreateCategoryModal } from '@/components/Category'
 
 const props = defineProps({
   model: {
@@ -69,6 +91,8 @@ const dispatch = store.dispatch
 
 const sources = computed(() => store.state.accounts.items)
 const categories = computed(() => store.state.category.items)
+
+const isCreateCategoryShown = ref(false)
 
 const form = ref({
   type: 'expenses',

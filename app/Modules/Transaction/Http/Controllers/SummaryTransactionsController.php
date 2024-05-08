@@ -18,11 +18,13 @@ class SummaryTransactionsController
         $incomeCategories = ['salary', 'bonus', 'allowance'];
 
         foreach ($transactions as $value) {
-            $test = 0;
-            if(in_array($value->category, $incomeCategories)){
-                $income += $value->total;
-            }else{
-                $expenses += $value->total;
+            $category = Category::where('name', $value->category)->first();
+            if($category){
+                if($category['type'] == 'income'){
+                    $income += $value->total;
+                }else{
+                    $expenses += $value->total;
+                }
             }
         }
 

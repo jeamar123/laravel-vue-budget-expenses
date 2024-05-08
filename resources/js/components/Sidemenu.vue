@@ -21,7 +21,7 @@
         :class="!isSidemenuFull && 'items-center'"
       >
         <div class="relative flex items-center min-h-[24px] pb-3 mb-3">
-          <router-link :to="{ name: 'Dashboard' }">
+          <router-link :to="{ name: 'Transactions' }">
             <!-- <span class="text-base font-semibold hidden lg:block">Logo</span> -->
             <img
               :src="`images/person-1.png`"

@@ -17,18 +17,18 @@ class TransactionSeeder extends Seeder
         [
             'user_id' => ADMIN_ID,
             'description' => 'Lunch',
-            'total' => -330,
+            'total' => 330,
             'source' => 'cash',
             'category' => 'food',
-            'date' => '2024-04-16 12:30:00',
+            'date' => '2024-05-01 12:30:00',
         ],
         [
             'user_id' => ADMIN_ID,
             'description' => 'Gas',
-            'total' => -1857,
+            'total' => 1857,
             'source' => 'credit card',
             'category' => 'car',
-            'date' => '2024-04-16 12:31:00',
+            'date' => '2024-05-01 12:31:00',
         ],
         [
             'user_id' => ADMIN_ID,
@@ -36,15 +36,15 @@ class TransactionSeeder extends Seeder
             'total' => 50000,
             'source' => 'bank account',
             'category' => 'salary',
-            'date' => '2024-04-16 12:32:00',
+            'date' => '2024-05-01 12:32:00',
         ],
         [
             'user_id' => ADMIN_ID,
             'description' => 'Dinner',
-            'total' => -540,
+            'total' => 540,
             'source' => 'cash',
             'category' => 'food',
-            'date' => '2024-04-16 12:33:00',
+            'date' => '2024-05-01 12:33:00',
         ],
     ];
 

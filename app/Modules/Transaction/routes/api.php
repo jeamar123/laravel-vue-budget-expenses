@@ -17,6 +17,7 @@ use App\Modules\Transaction\Http\Controllers\Category\UpdateCategoryController;
 use App\Modules\Transaction\Http\Controllers\Category\DeleteCategoryController;
 
 use App\Modules\Transaction\Http\Controllers\Budget\ListBudgetsController;
+use App\Modules\Transaction\Http\Controllers\Budget\UpdateBudgetController;
 
 use App\Modules\Transaction\Models\Transaction;
 use App\Modules\Transaction\Models\Category;
@@ -28,6 +29,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('/', ListBudgetsController::class)
             ->name('budget.list')
             ->can('list', Category::class);
+        Route::patch('/{category}', UpdateBudgetController::class)
+            ->name('category.update')
+            ->can('update', Category::class);
     });
 
     Route::group(['prefix' => 'category'], function () {

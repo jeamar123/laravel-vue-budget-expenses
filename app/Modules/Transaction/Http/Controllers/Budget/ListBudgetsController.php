@@ -19,7 +19,7 @@ class ListBudgetsController
         $categories = Category::where('user_id', auth()->user()->id)
                                     ->where('type', 'expenses')
                                     ->orWhereNull('user_id')
-                                    ->orderBy('created_at')
+                                    ->orderBy('name')
                                     ->get();
         
         foreach ($categories as $category) {
@@ -38,24 +38,20 @@ class ListBudgetsController
             ['label' => 'Remaining', 'key' => 'remaining'],
         ];
 
-        $isPaginate = $request->get('paginate', true);
+        $result = $this->paginateTableWithMeta(
+                    $categories,
+                    $request->get('perPage', 10),
+                    BudgetResource::class,
+                    $table_headers,
+                    filter_var(
+                        $request->get('paginate', false),
+                        FILTER_VALIDATE_BOOLEAN,
+                        FILTER_NULL_ON_FAILURE
+                    )
+                );
 
-        if($isPaginate === 'true' || $isPaginate === true){
-            $result = $this->paginateTableWithMeta(
-                $categories,
-                $request->get('perPage', 10),
-                BudgetResource::class,
-                $table_headers
-            );
-
-            return response()->json([
-                ...$result,
-            ], 200);
-        }else{
-            return response()->json([
-                'headers' => $table_headers,
-                'data' => $categories
-            ], 200);
-        }
+        return response()->json([
+            ...$result,
+        ], 200);
     }
 }   

@@ -1,12 +1,9 @@
 <template>
   <section>
-    <Card>
+    <Card class="!p-2 md:!p-4">
       <div class="mb-3 flex items-center justify-between gap-x-2">
-        <Heading as="h3">Expenses</Heading> 
-        <Button
-          class="!p-2"
-          @click="isCreateModalShown = true"
-        >
+        <Heading as="h3">Expenses</Heading>
+        <Button class="!p-2" @click="isCreateModalShown = true">
           <Icon name="PlusIcon" class="w-5" />
         </Button>
       </div>
@@ -14,17 +11,9 @@
         id="category-table"
         :headers="headers"
         :data="categories"
-        :show-pagination="false"
         :show-checkbox="false"
         :show-items-info="false"
         :pagination="pagination"
-        @rows="rows"
-        @paginate="paginate"
-        @show="
-          (item) => {
-            selectedCategory = item
-          }
-        "
         @edit="
           (item) => {
             selectedCategory = item
@@ -94,38 +83,18 @@ import { useStore } from 'vuex'
 
 const store = useStore()
 const dispatch = store.dispatch
-const commit = store.commit
 
 const headers = computed(() => store.state.category.headers)
-const categories = computed(() => store.state.category.items.filter(({ type }) => type === 'expenses'))
-const pagination = computed(() => store.state.category.pagination)
+const categories = computed(() =>
+  store.state.category.items.filter(({ type }) => type === 'expenses'),
+)
 
 const selectedCategory = ref({})
 const isCreateModalShown = ref(false)
 const isEditModalShown = ref(false)
 const isDeleteAlertShown = ref(false)
 
-const getCategories = () =>  dispatch('REQUEST_GET_CATEGORY')
-
-const rows = (rows) => {
-  commit('UPDATE_CATEGORY_STATE', {
-    ...pagination,
-    pagination: {
-      per_page: rows,
-      current_page: 1,
-    },
-  })
-  getCategories()
-}
-const paginate = (page) => {
-  commit('UPDATE_CATEGORY_STATE', {
-    ...pagination,
-    pagination: {
-      current_page: page,
-    },
-  })
-  getCategories()
-}
+const getCategories = () => dispatch('REQUEST_GET_CATEGORY')
 </script>
 
 <style>

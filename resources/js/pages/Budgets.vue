@@ -1,84 +1,85 @@
 <template>
-  <div class="py-2 lg:py-5 px-2 lg:px-8">
-    <section>
-      <Card>
+  <div class="md:py-2 lg:py-5 md:px-2 lg:px-8">
+    <section class="md:max-w-[800px]">
+      <Card class="!pb-0 !pt-2 !px-2 md:!px-4 md:!py-4">
         <div class="mb-3 flex items-center justify-between gap-x-2">
-          <Heading as="h3">Budgets</Heading> 
-          <Button
-            class="!p-2"
-            @click="isCreateModalShown = true"
-          >
-            <Icon name="PlusIcon" class="w-5" />
-          </Button>
+          <Heading as="h3">Budgets</Heading>
         </div>
-        <Table
-          id="budgets-table"
-          :headers="headers"
-          :data="categories"
-          :show-pagination="false"
-          :show-checkbox="false"
-          :show-items-info="false"
-          :pagination="pagination"
-          @rows="rows"
-          @paginate="paginate"
-          @show="
-            (item) => {
-              selectedBudget = item
-            }
-          "
-          @edit="
-            (item) => {
-              selectedBudget = item
-              isEditModalShown = true
-            }
-          "
-          @delete="
-            (item) => {
-              selectedBudget = item
-              isDeleteAlertShown = true
-            }
-          "
-        />
+
+        <div class="">
+          <div
+            class="rounded-lg px-2 py-3 md:px-4 md:py-3 bg-slate-200 grid grid-cols-3 md:grid-cols-4 gap-x-5"
+          >
+            <div class="font-medium text-xs col-span-2 md:col-span-1">
+              Category
+            </div>
+            <div class="hidden md:block font-medium text-xs">Budget</div>
+            <div class="hidden md:block font-medium text-xs">Spent</div>
+            <div class="hidden md:block font-medium text-xs">Remaining</div>
+            <div
+              class="block md:hidden text-center font-medium text-xs col-span-1"
+            >
+              Actions
+            </div>
+          </div>
+          <template v-for="category in categories" :key="category.id">
+            <div
+              class="grid grid-cols-3 md:flex gap-x-5 px-2 py-3 md:px-4 md:py-3 border-b border-slate-200"
+            >
+              <div class="capitalize block md:hidden">{{ category.name }}</div>
+              <div class="flex-1 grid md:grid-cols-4 gap-x-5">
+                <div class="hidden md:block capitalize">
+                  {{ category.name }}
+                </div>
+                <div class="">
+                  <div class="flex gap-x-2">
+                    <span>{{ formatNumber(category.budget) }}</span>
+                    <Button
+                      variant="blank"
+                      class="!px-1 !py-0 hidden md:inline-block"
+                      @click="
+                        () => {
+                          selectedBudget = category
+                          isEditModalShown = true
+                        }
+                      "
+                    >
+                      <Icon name="PencilSquareIcon" class="w-4" />
+                    </Button>
+                  </div>
+                </div>
+                <div class="">{{ formatNumber(category.spent) }}</div>
+                <div
+                  class="font-medium"
+                  :class="
+                    category.remaining < 0 ? 'text-red-600' : 'text-green-900'
+                  "
+                >
+                  {{ formatNumber(category.remaining) }}
+                </div>
+              </div>
+              <div class="flex md:hidden items-start justify-center">
+                <Button variant="blank" class="!px-1 !py-0">
+                  <Icon name="PencilSquareIcon" class="w-4" />
+                </Button>
+              </div>
+            </div>
+          </template>
+        </div>
       </Card>
 
-      <!-- <CreateCategoryModal
-        :show="isCreateModalShown"
-        type="expenses"
-        @close="isCreateModalShown = false"
-        @success="
-          () => {
-            getCategories()
-            isCreateModalShown = false
-          }
-        "
-      />
-
-      <UpdateCategoryModal
+      <UpdateBudgetModal
         v-if="isEditModalShown"
         :show="isEditModalShown"
-        type="expenses"
-        :model="selectedCategory"
+        :model="selectedBudget"
         @close="isEditModalShown = false"
         @success="
           () => {
-            getCategories()
+            getBudgets()
             isEditModalShown = false
           }
         "
       />
-
-      <DeleteCategory
-        v-if="isDeleteAlertShown"
-        :show="isDeleteAlertShown"
-        :model="selectedCategory"
-        @close="isDeleteAlertShown = false"
-        @confirm="
-          () => {
-            getCategories()
-            isDeleteAlertShown = false
-          }
-        "
-      /> -->
     </section>
   </div>
 </template>
@@ -86,56 +87,19 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { Card, Button, Heading, Icon } from '@/components/common'
-import { Table } from '@/components/table'
-// import {
-//   CreateCategoryModal,
-//   UpdateCategoryModal,
-//   DeleteCategory,
-// } from '@/components/Category'
+import { UpdateBudgetModal } from '@/components/Budget'
 import { useStore } from 'vuex'
+import { formatNumber } from '@/composables/number'
 
 const store = useStore()
 const dispatch = store.dispatch
-const commit = store.commit
 
-const headers = computed(() => store.state.budgets.headers)
 const categories = computed(() => store.state.budgets.items)
-const pagination = computed(() => store.state.budgets.pagination)
 
 const selectedBudget = ref({})
-const isCreateModalShown = ref(false)
 const isEditModalShown = ref(false)
-const isDeleteAlertShown = ref(false)
 
-onMounted(() => {
-  getBudgets()
-})
+onMounted(() => getBudgets())
 
-const getBudgets = () =>  dispatch('REQUEST_GET_BUDGET')
-
-const rows = (rows) => {
-  commit('UPDATE_BUDGET_STATE', {
-    ...pagination,
-    pagination: {
-      per_page: rows,
-      current_page: 1,
-    },
-  })
-  getBudgets()
-}
-const paginate = (page) => {
-  commit('UPDATE_BUDGET_STATE', {
-    ...pagination,
-    pagination: {
-      current_page: page,
-    },
-  })
-  getBudgets()
-}
+const getBudgets = () => dispatch('REQUEST_GET_BUDGET')
 </script>
-
-<style>
-#budgets-table table tbody tr td:first-child {
-  text-transform: capitalize;
-}
-</style>

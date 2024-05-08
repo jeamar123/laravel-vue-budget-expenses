@@ -18,7 +18,7 @@
     </slot>
 
     <template #footer>
-      <div class="flex items-center justify-center gap-x-3 pb-6 pt-4 px-4">
+      <div class="flex items-center justify-center gap-x-3 pb-6 pt-4 px-4 border-t">
         <Button variant="outline" @click="emit('close')">
           {{ closeButtonText }}
         </Button>

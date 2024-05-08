@@ -1,49 +1,49 @@
 <template>
-  <section class="py-2 lg:py-5 px-2 lg:px-8 h-full">
-    
+  <section class="md:py-2 lg:py-5 md:px-2 lg:px-8 h-full">
     <div class="flex flex-col lg:flex-row-reverse gap-y-2 gap-x-4">
-      <div class="flex-1 flex flex-col gap-y-2 shrink-0">
-        <Card class="!p-5">
+      <div class="flex-1 flex flex-col md:gap-y-2 shrink-0 lg:pt-[50px]">
+        <Card class="!py-2 md:!p-5">
           <Heading as="h5" class="text-slate-800 mb-1">Income</Heading>
-          <p class="text-2xl font-medium" :class="summary.income < 0 ? 'text-red-800' : 'text-green-800'">
+          <p class="text-2xl font-medium">
             {{ formatNumber(summary.income) }}
           </p>
         </Card>
 
-        <Card class="!p-5">
+        <Card class="!py-2 md:!p-5">
           <Heading as="h5" class="text-slate-800 mb-1">Expenses</Heading>
-          <p class="text-2xl font-medium" :class="summary.expenses < 0 ? 'text-red-800' : 'text-green-800'">
+          <p class="text-2xl font-medium">
             {{ formatNumber(summary.expenses) }}
           </p>
         </Card>
 
-        <Card class="!p-5">
+        <Card class="!py-2 md:!p-5">
           <Heading as="h5" class="text-slate-800 mb-1">Balance</Heading>
-          <p class="text-2xl font-medium" :class="summary.balance < 0 ? 'text-red-800' : 'text-green-800'">
+          <p
+            class="text-2xl font-medium"
+            :class="summary.balance < 0 ? 'text-red-800' : 'text-green-800'"
+          >
             {{ formatNumber(summary.balance) }}
           </p>
         </Card>
       </div>
 
       <div class="lg:w-9/12 h-max">
-        <div class="mb-3 flex md:items-center justify-between gap-x-2">
-          <div class="flex flex-col-reverse md:flex-row gap-y-2 gap-x-4 md:items-center">
+        <div
+          class="px-2 md:px-0 mb-3 flex flex-row items-center justify-between gap-y-2 gap-x-2"
+        >
+          <div class="flex flex-row gap-y-2 gap-x-2 md:gap-x-4 md:items-center">
             <TransactionsActions
               v-if="selectedTransactionList.length"
               @action="actionChanged"
             />
-            <TransactionsFilter
-              @dates-changed="dateChanged"
-            />
           </div>
 
-          <div class="flex items-start md:items-center gap-x-2">
-            <Button
-              class="!p-2 md:!px-5"
-              @click="isCreateModalShown = true"
-            >
-              <span class="hidden md:block">Create</span>
-              <Icon name="PlusIcon" class="w-5 h-5 block md:hidden" />
+          <div class="flex md:items-center justify-end flex-1 gap-x-2">
+            <Button variant="blank" class="!p-[6px] !border !border-solid !border-slate-800" @click="isFilterModalShown = true">
+              <Icon name="AdjustmentsHorizontalIconOutline" class="w-6 h-6 text-slate-900" />
+            </Button>
+            <Button class="!p-2" @click="isCreateModalShown = true">
+              <Icon name="PlusIcon" class="w-5 h-5" />
             </Button>
           </div>
         </div>
@@ -72,6 +72,15 @@
       </div>
     </div>
   </section>
+
+  <TransactionFilterModal
+    :show="isFilterModalShown"
+    @close="isFilterModalShown = false"
+    @dates-changed="(dates) => {
+      dateChanged(dates)
+      isFilterModalShown = false
+    }"
+  />
 
   <CreateTransactionModal
     :show="isCreateModalShown"
@@ -117,10 +126,11 @@ import { Heading, Card, Button, Icon } from '@/components/common'
 import {
   CreateTransactionModal,
   TransactionsFilter,
+  TransactionFilterModal,
   UpdateTransactionModal,
   DeleteTransaction,
   TransactionsActions,
-  TransactionList
+  TransactionList,
 } from '@/components/Transactions'
 import { useStore } from 'vuex'
 import { formatNumber } from '@/composables/number'
@@ -138,6 +148,7 @@ const selectedTransactionList = ref([])
 const isCreateModalShown = ref(false)
 const isEditModalShown = ref(false)
 const isDeleteAlertShown = ref(false)
+const isFilterModalShown = ref(false)
 
 onMounted(() => {
   getTransactions()

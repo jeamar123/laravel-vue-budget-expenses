@@ -101,7 +101,7 @@ const actions = {
         .then((res) => {
           // console.log(res)
           commit(UPDATE_TRANSACTIONS_STATE, {
-            items: res.data.data,
+            items: res.data.data.map((item) => ({ ...item, show: true })),
             pagination: res.data.meta,
             headers: res.data.headers,
           })

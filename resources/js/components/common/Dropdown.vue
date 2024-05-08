@@ -2,7 +2,8 @@
   <Menu as="div" class="min-w-16 cursor-pointer">
     <div class="relative">
       <MenuButton
-        class="relative flex items-center gap-x-2 w-full rounded-lg py-2 px-3 text-left shadow-md focus:outline-none text-xs hover:opacity-90 border border-slate-500 text-slate-700 bg-white"
+        class="relative flex items-center gap-x-2 w-full rounded-lg py-2 px-3 text-left shadow-md focus:outline-none text-xs hover:opacity-90 border border-slate-400 text-slate-700 bg-white"
+        :class="buttonClass"
       >
         <slot name="button-content">
           <span class="block truncate capitalize">
@@ -78,6 +79,10 @@ const props = defineProps({
   fixedPlaceholder: {
     type: Boolean,
     default: () => false,
+  },
+  buttonClass: {
+    type: [String, Array, Object],
+    default: ''
   },
 })
 

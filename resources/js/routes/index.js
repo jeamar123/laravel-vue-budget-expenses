@@ -14,16 +14,16 @@ const routes = [
       auth: false,
     },
   },
-  {
-    path: '/',
-    name: 'Dashboard',
-    component: () => import('@/pages/Home.vue'),
-    meta: {
-      auth: true,
-      sidemenu: true,
-      icon: 'HomeIcon',
-    },
-  },
+  // {
+  //   path: '/',
+  //   name: 'Dashboard',
+  //   component: () => import('@/pages/Home.vue'),
+  //   meta: {
+  //     auth: true,
+  //     sidemenu: true,
+  //     icon: 'HomeIcon',
+  //   },
+  // },
   {
     path: '/transaction',
     name: 'Transactions',

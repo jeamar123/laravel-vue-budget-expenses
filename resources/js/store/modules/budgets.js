@@ -50,7 +50,6 @@ const actions = {
     let params = {
       page: state.pagination.current_page,
       perPage: state.pagination.per_page,
-      paginate: false
     }
     params.query = `?${objToURLParams(params)}`
 
@@ -83,31 +82,6 @@ const actions = {
     })
   },
 
-  async [REQUEST_CREATE_BUDGET]({ commit }, params) {
-    return new Promise((resolve) => {
-      commit(UPDATE_LOADING_STATE, {
-        show: true,
-      })
-      axios
-        .post('/api/transaction/budget', params, actions.getHeaders())
-        .then((res) => {
-          // console.log(res);
-          commit(UPDATE_LOADING_STATE, {
-            show: false,
-          })
-          resolve(res)
-        })
-        .catch((err) => {
-          // console.log(err.response)
-          handleErr(err)
-          commit(UPDATE_LOADING_STATE, {
-            show: false,
-          })
-          resolve(err.response)
-        })
-    })
-  },
-
   async [REQUEST_UPDATE_BUDGET]({ commit }, params) {
     return new Promise((resolve) => {
       commit(UPDATE_LOADING_STATE, {
@@ -129,30 +103,6 @@ const actions = {
         .catch((err) => {
           // console.log(err.response)
           handleErr(err)
-          commit(UPDATE_LOADING_STATE, {
-            show: false,
-          })
-          resolve(err.response)
-        })
-    })
-  },
-
-  async [REQUEST_DELETE_BUDGET]({ commit }, params) {
-    return new Promise((resolve) => {
-      commit(UPDATE_LOADING_STATE, {
-        show: true,
-      })
-      axios
-        .delete(`/api/transaction/budget/${params.id}`, actions.getHeaders())
-        .then((res) => {
-          // console.log(res);
-          commit(UPDATE_LOADING_STATE, {
-            show: false,
-          })
-          resolve(res)
-        })
-        .catch((err) => {
-          // console.log(err.response)
           commit(UPDATE_LOADING_STATE, {
             show: false,
           })

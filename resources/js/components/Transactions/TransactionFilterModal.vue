@@ -1,62 +1,84 @@
 <template>
-  <div class="flex flex-row gap-y-2 gap-x-2 md:gap-x-4 md:items-center">
-    <Dropdown
-      v-model="selectedView"
-      class="w-max md:w-auto"
-      :items="['daily', 'monthly', 'calendar']"
-      @update:model-value="emitChanges"
-    />
-    <PopoverWrapper
-      v-slot="{ close }"
-      button-class="bg-white"
-      panel-class="w-max"
-      :button-label="dateButtonLabel"
-    >
-      <template v-if="selectedView === 'daily'">
-        <Datepicker
-          v-model="selectedDay"
-          @update:model-value="
-            (value) => {
-              dateChanged(value, close)
-            }
-          "
+  <Modal
+    :show="show"
+    title="Transaction Filters"
+    wrapper-class="lg:max-w-[350px]"
+    @close="emit('close')"
+  >
+    <template #body-footer>
+      <div class="space-y-2 px-6 pt-6 pb-8 max-w-[200px]">
+        <Dropdown
+          v-model="selectedView"
+          class="!min-w-0"
+          button-class="justify-between"
+          :items="['daily', 'monthly', 'calendar']"
+          @update:model-value="emitChanges"
         />
-      </template>
+        <PopoverWrapper
+          v-slot="{ close }"
+          button-class="bg-white justify-between"
+          panel-class="w-max"
+          :button-label="dateButtonLabel"
+        >
+          <template v-if="selectedView === 'daily'">
+            <Datepicker
+              v-model="selectedDay"
+              @update:model-value="
+                (value) => {
+                  dateChanged(value, close)
+                }
+              "
+            />
+          </template>
 
-      <template v-if="selectedView === 'monthly'">
-        <Datepicker
-          v-model="selectedMonth"
-          :month-picker="true"
-          @update:model-value="
-            (value) => {
-              dateChanged(value, close)
-            }
-          "
-        />
-      </template>
+          <template v-if="selectedView === 'monthly'">
+            <Datepicker
+              v-model="selectedMonth"
+              :month-picker="true"
+              @update:model-value="
+                (value) => {
+                  dateChanged(value, close)
+                }
+              "
+            />
+          </template>
 
-      <template v-if="selectedView === 'calendar'">
-        <Datepicker
-          v-model="selectedRange"
-          :range="true"
-          @update:model-value="
-            (value) => {
-              dateChanged(value, close)
-            }
-          "
-        />
-      </template>
-    </PopoverWrapper>
-  </div>
+          <template v-if="selectedView === 'calendar'">
+            <Datepicker
+              v-model="selectedRange"
+              :range="true"
+              @update:model-value="
+                (value) => {
+                  dateChanged(value, close)
+                }
+              "
+            />
+          </template>
+        </PopoverWrapper>
+      </div>
+
+      <div class="flex items-center justify-end gap-x-4 p-4 border-t">
+        <Button variant="blank"> Cancel </Button>
+        <Button type="submit"> Submit </Button>
+      </div>
+    </template>
+  </Modal>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
-import { Dropdown, PopoverWrapper, Datepicker } from '@/components/common'
+import { Button, Modal, Dropdown, PopoverWrapper, Datepicker } from '@/components/common'
 import { format } from '@/composables/date'
 import { startOfMonth, endOfMonth } from 'date-fns'
 
-const emit = defineEmits(['dates-changed'])
+const props = defineProps({
+  show: {
+    type: Boolean,
+    default: () => false,
+  },
+})
+
+const emit = defineEmits(['close', 'dates-changed'])
 
 const dateButtonLabel = computed(() => {
   let start = format(selectedRange.value[0], 'MMM dd, yyyy')

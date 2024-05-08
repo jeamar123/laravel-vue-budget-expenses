@@ -10,6 +10,7 @@ class BudgetResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->resource->id,
             'name' => $this->resource->name,
             'budget' => $this->resource->budget ?? 0,
             'spent' => $this->resource->spent ?? 0,

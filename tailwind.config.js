@@ -15,7 +15,8 @@ export default {
           border: '#d4d4d8',
         },
         form: {
-          border: '#a9a9af',
+          border: '#e5e7eb',
+          // border: '#a9a9af',
         },
       },
       fontFamily: {

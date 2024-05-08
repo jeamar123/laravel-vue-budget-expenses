@@ -5,8 +5,9 @@
     <Sidemenu />
 
     <div class="relative flex-1 flex flex-col">
-      <Header />
-      <div class="relative overflow-y-auto lg:max-h-[100vh-58px] flex-1">
+      <!-- <Header /> -->
+      <!-- lg:max-h-[100vh-58px]  -->
+      <div class="relative overflow-y-auto flex-1">
         <router-view></router-view>
       </div>
     </div>
@@ -23,7 +24,7 @@
 <script setup>
 import { computed } from 'vue'
 import Sidemenu from '@/components/Sidemenu.vue'
-import Header from '@/components/Header.vue'
+// import Header from '@/components/Header.vue'
 import { NotificationAlert } from '@/components/common'
 import { useStore } from 'vuex'
 import { UPDATE_NOTIF_ALERT_STATE } from '@/store/index'

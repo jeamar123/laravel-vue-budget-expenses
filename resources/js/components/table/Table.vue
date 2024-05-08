@@ -21,7 +21,7 @@
             <tr>
               <th
                 v-if="showCheckbox"
-                class="sticky top-0 left-0 z-[2] bg-gray-100 pl-4 pr-2 py-2 font-normal rounded-l-md w-14"
+                class="sticky top-0 left-0 z-[2] bg-gray-100 pl-4 pr-2 py-3 font-normal rounded-l-md w-14"
               >
                 <Checkbox
                   :checked="isSelectedAll"
@@ -36,7 +36,7 @@
               <th
                 v-for="col in headers"
                 :key="col.id"
-                class="sticky top-0 bg-gray-100 text-left px-2 py-2 font-medium text-xs"
+                class="sticky top-0 bg-gray-100 text-left px-2 py-3 font-medium text-xs"
                 :class="showCheckbox ? 'px-2' : 'px-2 first:pl-4 first:pr-2'"
               >
                 <!-- @click="sortBy(idx)" -->
@@ -53,7 +53,7 @@
               </th>
               <th
                 v-if="
-                  actions.enable ||
+                  actions.show ||
                   Object.keys(actions).find((i) => actions[i] === true)
                 "
                 class="sticky top-0 bg-gray-100 text-right pl-2 pr-4 py-4 font-normal rounded-r-md"
@@ -99,17 +99,20 @@
                     format(row[col.key], 'MMM dd yyyy')
                   }}</span>
                   <span
-                    v-else-if="['total', 'amount', 'remaining'].includes(col.key)"
+                    v-else-if="
+                      ['total', 'amount', 'remaining'].includes(col.key)
+                    "
                     class=""
                     :class="
-                      row[col.key] < 0 ? 'font-medium text-red-600' : 'font-medium text-green-900'
+                      row[col.key] < 0
+                        ? 'font-medium text-red-600'
+                        : 'font-medium text-green-900'
                     "
                     >{{ formatNumber(row[col.key]) }}</span
                   >
-                  <span
-                    v-else-if="typeof row[col.key] === 'number'"
-                    >{{ formatNumber(row[col.key]) }}</span
-                  >
+                  <span v-else-if="typeof row[col.key] === 'number'">{{
+                    formatNumber(row[col.key])
+                  }}</span>
                   <span
                     v-else-if="['category'].includes(col.key)"
                     class="inline-block border border-slate-400 py-[1px] px-1 rounded text-xs"
@@ -122,7 +125,7 @@
                 </td>
                 <td class="pl-2 pr-4 group-even:bg-gray-50 rounded-r-md">
                   <div
-                    v-if="actions.enable || row.showActions"
+                    v-if="actions.show || row.showActions"
                     class="flex items-center justify-end gap-x-1"
                   >
                     <!-- <Button
@@ -156,7 +159,7 @@
             <template v-else>
               <tr class="bg-gray-50 text-center px-6">
                 <td
-                  :colspan="headers.length + 1 + (actions.enable ? 1 : 0)"
+                  :colspan="headers.length + 1 + (actions.show ? 1 : 0)"
                   class="py-5"
                 >
                   No items yet
@@ -210,7 +213,6 @@ const props = defineProps({
   actions: {
     type: Object,
     default: () => ({
-      enable: true,
       show: true,
       edit: true,
       delete: true,

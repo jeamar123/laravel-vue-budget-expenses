@@ -27,7 +27,12 @@ class ListAccountsController
             $categories,
             $request->get('perPage', 10),
             AccountResource::class,
-            $table_headers
+            $table_headers,
+            filter_var(
+                $request->get('paginate', false),
+                FILTER_VALIDATE_BOOLEAN,
+                FILTER_NULL_ON_FAILURE
+            )
         );
 
         return response()->json([

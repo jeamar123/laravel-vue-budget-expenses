@@ -183,7 +183,7 @@ const getLabel = computed(() => {
   if (!value && props.placeholder) {
     return props.placeholder
   }
-  
+
   return value || null
 })
 

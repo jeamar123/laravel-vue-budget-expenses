@@ -12,28 +12,40 @@ trait TablePaginationTrait
      * @param  \Illuminate\Support\Collection|\Illuminate\Database\Eloquent\Builder  $items
      * @param  int  $perPage
      * @param  string  $resourceClass
+     * @param  array  $headers
+     * @param  boolean  $paginate
      * @return array
      */
-    public function paginateTableWithMeta($items, $perPage, $resourceClass, $headers = [])
+    public function paginateTableWithMeta($items, $perPage, $resourceClass, $headers = [], $paginate = false)
     {
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $paginator = $this->createLengthAwarePaginator($items, $perPage, $currentPage);
 
         $data = $this->transformCollection($paginator->items(), $resourceClass);
 
-        return [
-            'data' => $data,
-            'meta' => [
-                'total' => $paginator->total(),
-                'per_page' => $paginator->perPage(),
-                'current_page' => $paginator->currentPage(),
-                'last_page' => $paginator->lastPage(),
-                // 'next_page_url' => $paginator->nextPageUrl(),
-                // 'prev_page_url' => $paginator->previousPageUrl(),
-                // Add more metadata as needed
-            ],
-            'headers' => $headers
-        ];
+        if($paginate === 'true' || $paginate === true){
+        // if($paginate){
+            return [
+                'data' => $data,
+                'meta' => [
+                    'total' => $paginator->total(),
+                    'per_page' => $paginator->perPage(),
+                    'current_page' => $paginator->currentPage(),
+                    'last_page' => $paginator->lastPage(),
+                    // 'next_page_url' => $paginator->nextPageUrl(),
+                    // 'prev_page_url' => $paginator->previousPageUrl(),
+                    // Add more metadata as needed
+                ],
+                'headers' => $headers
+            ];  
+        }else{
+            return [
+                'headers' => $headers,
+                'data' => $data
+            ];
+        }
+
+        
     }
     
     /**

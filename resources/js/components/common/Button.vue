@@ -43,7 +43,7 @@ const getClasses = () => {
       break
     case 'disabled':
       classes =
-        'bg-[#256da1] border-[#256da1] text-white cursor-not-allowed opacity-70 hover:opacity-70'
+        'bg-[#256da1] border-[#256da1] text-white cursor-not-allowed opacity-70 hover:!opacity-70'
       break
     case 'blank':
       classes = 'border-none !p-2'

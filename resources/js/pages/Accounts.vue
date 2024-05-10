@@ -1,5 +1,7 @@
 <template>
-  <section class="md:py-2 lg:py-5 md:px-2 lg:px-8 grid md:grid-cols-2">
+  <section
+    class="container md:py-2 lg:py-5 md:px-2 lg:px-8 grid md:grid-cols-2"
+  >
     <Card class="!p-2 md:!p-4">
       <div class="mb-3 flex items-center justify-between gap-x-2">
         <Heading as="h3">Accounts</Heading>

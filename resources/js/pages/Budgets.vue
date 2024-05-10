@@ -1,5 +1,5 @@
 <template>
-  <div class="md:py-2 lg:py-5 md:px-2 lg:px-8">
+  <div class="container md:py-2 lg:py-5 md:px-2 lg:px-8">
     <section class="md:max-w-[800px]">
       <Card class="!pb-0 !pt-2 !px-2 md:!px-4 md:!py-4">
         <div class="mb-3 flex items-center justify-between gap-x-2">

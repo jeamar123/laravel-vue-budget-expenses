@@ -82,7 +82,7 @@ const props = defineProps({
   },
   buttonClass: {
     type: [String, Array, Object],
-    default: ''
+    default: '',
   },
 })
 

@@ -13,7 +13,6 @@
         :data="categories"
         :show-checkbox="false"
         :show-items-info="false"
-        :pagination="pagination"
         @edit="
           (item) => {
             selectedCategory = item

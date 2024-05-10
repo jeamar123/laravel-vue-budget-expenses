@@ -1,5 +1,5 @@
 <template>
-  <section class="md:py-2 lg:py-5 md:px-2 lg:px-8 h-full">
+  <section class="container md:pt-2 lg:pt-5 md:px-2 lg:px-8 h-full">
     <div class="flex flex-col lg:flex-row-reverse gap-y-2 gap-x-4">
       <div class="flex-1 flex flex-col md:gap-y-2 shrink-0 lg:pt-[50px]">
         <Card class="!py-2 md:!p-5">
@@ -39,8 +39,25 @@
           </div>
 
           <div class="flex md:items-center justify-end flex-1 gap-x-2">
-            <Button variant="blank" class="!p-[6px] !border !border-solid !border-slate-800" @click="isFilterModalShown = true">
-              <Icon name="AdjustmentsHorizontalIconOutline" class="w-6 h-6 text-slate-900" />
+            <Button
+              variant="blank"
+              class="!border !border-solid !border-slate-800"
+              @click="isUploadModalShown = true"
+            >
+              <Icon
+                name="ArrowUpTrayIconOutline"
+                class="w-5 h-5 text-slate-900"
+              />
+            </Button>
+            <Button
+              variant="blank"
+              class="!p-[6px] !border !border-solid !border-slate-800"
+              @click="isFilterModalShown = true"
+            >
+              <Icon
+                name="AdjustmentsHorizontalIconOutline"
+                class="w-6 h-6 text-slate-900"
+              />
             </Button>
             <Button class="!p-2" @click="isCreateModalShown = true">
               <Icon name="PlusIcon" class="w-5 h-5" />
@@ -76,10 +93,12 @@
   <TransactionFilterModal
     :show="isFilterModalShown"
     @close="isFilterModalShown = false"
-    @dates-changed="(dates) => {
-      dateChanged(dates)
-      isFilterModalShown = false
-    }"
+    @dates-changed="
+      (dates) => {
+        dateChanged(dates)
+        isFilterModalShown = false
+      }
+    "
   />
 
   <CreateTransactionModal
@@ -118,6 +137,17 @@
       }
     "
   />
+
+  <ImportTransactionsModal
+    :show="isUploadModalShown"
+    @close="isUploadModalShown = false"
+    @success="
+      () => {
+        getTransactions()
+        isUploadModalShown = false
+      }
+    "
+  />
 </template>
 
 <script setup>
@@ -131,6 +161,7 @@ import {
   DeleteTransaction,
   TransactionsActions,
   TransactionList,
+  ImportTransactionsModal,
 } from '@/components/Transactions'
 import { useStore } from 'vuex'
 import { formatNumber } from '@/composables/number'
@@ -149,6 +180,7 @@ const isCreateModalShown = ref(false)
 const isEditModalShown = ref(false)
 const isDeleteAlertShown = ref(false)
 const isFilterModalShown = ref(false)
+const isUploadModalShown = ref(false)
 
 onMounted(() => {
   getTransactions()

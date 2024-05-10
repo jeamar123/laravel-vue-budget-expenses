@@ -14,14 +14,15 @@ import {
   PlusIcon,
   ScaleIcon,
   AdjustmentsHorizontalIcon,
-  FunnelIcon
+  FunnelIcon,
 } from '@heroicons/vue/20/solid'
 
 import {
   PencilSquareIcon as PencilSquareIconOutline,
   TrashIcon as TrashIconOutline,
   AdjustmentsHorizontalIcon as AdjustmentsHorizontalIconOutline,
-  FunnelIcon as FunnelIconOutline
+  FunnelIcon as FunnelIconOutline,
+  ArrowUpTrayIcon as ArrowUpTrayIconOutline,
 } from '@heroicons/vue/24/outline'
 
 const Icon = {
@@ -44,7 +45,8 @@ const Icon = {
   AdjustmentsHorizontalIcon,
   FunnelIcon,
   AdjustmentsHorizontalIconOutline,
-  FunnelIconOutline
+  FunnelIconOutline,
+  ArrowUpTrayIconOutline,
 }
 
 export default Icon

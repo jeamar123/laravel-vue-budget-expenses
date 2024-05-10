@@ -42,17 +42,17 @@ export default {
           width: '100%',
           marginLeft: 'auto',
           marginRight: 'auto',
-          maxWidth: '1560px',
-          paddingLeft: theme('spacing.6'),
-          paddingRight: theme('spacing.6'),
-          '@screen md': {
-            paddingLeft: theme('spacing.12'),
-            paddingRight: theme('spacing.12'),
-          },
-          '@screen lg': {
-            paddingLeft: theme('spacing.24'),
-            paddingRight: theme('spacing.24'),
-          },
+          maxWidth: '1440px',
+          // paddingLeft: theme('spacing.0'),
+          // paddingRight: theme('spacing.0'),
+          // '@screen md': {
+          //   paddingLeft: theme('spacing.2'),
+          //   paddingRight: theme('spacing.2'),
+          // },
+          // '@screen lg': {
+          //   paddingLeft: theme('spacing.8'),
+          //   paddingRight: theme('spacing.8'),
+          // },
         },
       })
     },

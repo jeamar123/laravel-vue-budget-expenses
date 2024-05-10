@@ -27,7 +27,7 @@
       </div>
     </Card>
     <div
-      class="md:py-2 md:space-y-2 overflow-y-auto lg:max-h-[calc(100vh-132px)] mr-[-3px] pr-[3px]"
+      class="md:py-2 md:space-y-2 overflow-y-auto lg:max-h-[calc(100vh-172px)] mr-[-3px] pr-[3px]"
     >
       <template v-for="transaction in transactions" :key="transaction.date">
         <div>
@@ -36,13 +36,30 @@
             @click="transaction.show = !transaction.show"
           >
             <div class="shrink-0">
+              <Checkbox
+                :checked="
+                  [...transaction.items.map((item) => item.id)].every((item) =>
+                    selectedItems.includes(item),
+                  )
+                "
+                @click.stop
+                @change="
+                  (value) =>
+                    selectAllUnderDate(
+                      value,
+                      transaction.items.map((item) => item.id),
+                    )
+                "
+              />
+            </div>
+            <div class="font-semibold flex-1">
+              {{ format(transaction.date, 'MMM dd, yyyy') }}
+            </div>
+            <div class="shrink-0">
               <Icon
                 :name="transaction.show ? 'ChevronUpIcon' : 'ChevronDownIcon'"
                 class="w-5"
               />
-            </div>
-            <div class="font-semibold">
-              {{ format(transaction.date, 'MMM dd, yyyy') }}
             </div>
           </Card>
           <template v-if="transaction.show">
@@ -65,9 +82,6 @@
               <div
                 class="grid md:grid-cols-4 gap-y-1 gap-x-2 flex-1 items-start"
               >
-                <!-- <div> -->
-                  <!-- {{ format(item.date, 'MMM dd, yyyy') }} -->
-                <!-- </div> -->
                 <div>{{ item.description }}</div>
                 <div
                   class="font-medium"
@@ -149,6 +163,21 @@ const selectAll = (selected) => {
     }, [])
   }
 
+  emit('selected', selectedItems.value)
+}
+
+const selectAllUnderDate = (selected, transactions) => {
+  if (!selected) {
+    selectedItems.value = selectedItems.value.filter((transaction) => {
+      return !transactions.includes(transaction)
+    })
+  } else {
+    transactions.forEach((transaction) => {
+      if (!selectedItems.value.includes(transaction)) {
+        selectedItems.value.push(transaction)
+      }
+    })
+  }
   emit('selected', selectedItems.value)
 }
 

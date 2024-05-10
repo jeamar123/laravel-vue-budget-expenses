@@ -6,6 +6,7 @@ import TransactionFilterModal from './TransactionFilterModal.vue'
 import TransactionForm from './TransactionForm.vue'
 import TransactionsActions from './TransactionsActions.vue'
 import TransactionList from './TransactionList.vue'
+import ImportTransactionsModal from './ImportTransactionsModal.vue'
 
 export {
   CreateTransactionModal,
@@ -16,4 +17,5 @@ export {
   TransactionForm,
   TransactionsActions,
   TransactionList,
+  ImportTransactionsModal,
 }

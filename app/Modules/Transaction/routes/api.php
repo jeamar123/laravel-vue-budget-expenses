@@ -61,6 +61,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/', CreateTransactionController::class)
         ->name('transaction.create')
         ->can('create', Transaction::class);
+    Route::post('/import', ImportTransactionController::class)
+        ->name('transaction.create')
+        ->can('create', Transaction::class);
     Route::patch('/{transaction}', UpdateTransactionController::class)
         ->name('transaction.update')
         ->can('update', 'transaction');

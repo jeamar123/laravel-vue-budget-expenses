@@ -21,7 +21,7 @@
             leave-to-class="opacity-0"
           >
             <PopoverPanel
-              class="fixed left-0 top-[55px] h-[calc(100vh-55px)] w-[200px] border-none border-slate-700 pt-2 pb-5 px-3 bg-slate-900"
+              class="fixed left-0 top-[55px] h-[calc(100vh-55px)] w-[200px] border border-slate-700 pt-2 pb-5 px-3 bg-slate-900"
             >
               <button
                 v-for="{ label, routeName } in menuItems"

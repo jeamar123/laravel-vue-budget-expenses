@@ -44,7 +44,7 @@
                         }
                       "
                     >
-                      <Icon name="PencilSquareIcon" class="w-4" />
+                      <Icon name="PencilSquareIconOutline" class="w-4" />
                     </Button>
                   </div>
                 </div>
@@ -60,7 +60,7 @@
               </div>
               <div class="flex md:hidden items-start justify-center">
                 <Button variant="blank" class="!px-1 !py-0">
-                  <Icon name="PencilSquareIcon" class="w-4" />
+                  <Icon name="PencilSquareIconOutline" class="w-4" />
                 </Button>
               </div>
             </div>

@@ -10,7 +10,7 @@ class SummaryTransactionsController
 {
     public function __invoke(): JsonResponse
     {   
-        $transactions = Transaction::orderBy('date')->get();
+        $transactions = Transaction::where('user_id', auth()->user()->id)->orderBy('date')->get();
         
         $income = 0;        
         $expenses = 0;        

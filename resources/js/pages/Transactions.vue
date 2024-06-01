@@ -130,12 +130,7 @@
     :show="isDeleteAlertShown"
     :model="selectedTransaction"
     @close="isDeleteAlertShown = false"
-    @confirm="
-      () => {
-        getTransactions()
-        isDeleteAlertShown = false
-      }
-    "
+    @confirm="deleteBulkTransactions"
   />
 
   <ImportTransactionsModal
@@ -148,11 +143,18 @@
       }
     "
   />
+
+  <Alert
+    :show="isDeleteBulkAlertShown"
+    :message="`Are you sure you want to delete (${selectedTransactionList.length}) transaction${selectedTransactionList.length > 1 ? 's' : ''}?`"
+    @close="isDeleteBulkAlertShown = false"
+    @confirm="deleteBulkTransactions"
+  />
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { Heading, Card, Button, Icon } from '@/components/common'
+import { Heading, Card, Button, Icon, Alert } from '@/components/common'
 import {
   CreateTransactionModal,
   TransactionsFilter,
@@ -179,6 +181,7 @@ const selectedTransactionList = ref([])
 const isCreateModalShown = ref(false)
 const isEditModalShown = ref(false)
 const isDeleteAlertShown = ref(false)
+const isDeleteBulkAlertShown = ref(false)
 const isFilterModalShown = ref(false)
 const isUploadModalShown = ref(false)
 
@@ -206,8 +209,16 @@ const dateChanged = (dates) => {
 
 const actionChanged = (action) => {
   if (action === 'delete') {
-    selectedTransaction.value = selectedTransactionList.value
-    isDeleteAlertShown.value = true
+    isDeleteBulkAlertShown.value = true
+  }
+}
+
+const deleteBulkTransactions = async () => {
+  let res = await dispatch('REQUEST_BULK_DELETE_TRANSACTION', { transactions: selectedTransactionList.value })
+  console.log(res)
+  if(res.status === 201){
+    getTransactions()
+    isDeleteBulkAlertShown.value = false
   }
 }
 </script>

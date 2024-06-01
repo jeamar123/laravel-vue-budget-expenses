@@ -5,6 +5,7 @@ import { UPDATE_LOADING_STATE } from '@/store/index'
 export const UPDATE_AUTH_STATE = 'UPDATE_AUTH_STATE'
 
 export const REQUEST_AUTH_LOGIN = 'REQUEST_AUTH_LOGIN'
+export const REQUEST_AUTH_REGISTER = 'REQUEST_AUTH_REGISTER'
 export const REQUEST_AUTH_LOGOUT = 'REQUEST_AUTH_LOGOUT'
 export const FETCH_CURRENT_USER = 'FETCH_CURRENT_USER'
 
@@ -50,6 +51,31 @@ const actions = {
             isLoggedIn: true,
             token: token,
           })
+          commit(UPDATE_AUTH_STATE, {
+            isLoading: false,
+          })
+          resolve(res)
+        })
+        .catch((err) => {
+          // console.log(err.response)
+          handleErr(err)
+          commit(UPDATE_AUTH_STATE, {
+            isLoading: false,
+          })
+          resolve(err.response)
+        })
+    })
+  },
+
+  async [REQUEST_AUTH_REGISTER]({ commit }, params) {
+    return new Promise((resolve) => {
+      commit(UPDATE_AUTH_STATE, {
+        isLoading: true,
+      })
+      axios
+        .post('/api/user/register', params)
+        .then((res) => {
+          console.log(res)
           commit(UPDATE_AUTH_STATE, {
             isLoading: false,
           })

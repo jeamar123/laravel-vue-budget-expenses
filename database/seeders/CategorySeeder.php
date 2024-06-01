@@ -15,20 +15,9 @@ class CategorySeeder extends Seeder
         ],
         [
             'user_id' => ADMIN_ID,
-            'name' => 'car',
+            'name' => 'home',
             'type' => 'expenses'
         ],
-        [
-            'user_id' => ADMIN_ID,
-            'name' => 'household',
-            'type' => 'expenses'
-        ],
-        [
-            'user_id' => ADMIN_ID,
-            'name' => 'clothing',
-            'type' => 'expenses'
-        ],
-
         [
             'user_id' => ADMIN_ID,
             'name' => 'salary',
@@ -37,11 +26,6 @@ class CategorySeeder extends Seeder
         [
             'user_id' => ADMIN_ID,
             'name' => 'allowance',
-            'type' => 'income'
-        ],
-        [
-            'user_id' => ADMIN_ID,
-            'name' => 'bonus',
             'type' => 'income'
         ],
     ];

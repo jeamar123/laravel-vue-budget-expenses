@@ -14,6 +14,14 @@ const routes = [
       auth: false,
     },
   },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('@/pages/Auth/Register.vue'),
+    meta: {
+      auth: false,
+    },
+  },
   // {
   //   path: '/',
   //   name: 'Dashboard',

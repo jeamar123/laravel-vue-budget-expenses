@@ -18,8 +18,12 @@ class AccountSeeder extends Seeder
         ],
         [
             'user_id' => ADMIN_ID,
-            'name' => 'card',
-        ]
+            'name' => 'credit card',
+        ],
+        [
+            'user_id' => ADMIN_ID,
+            'name' => 'debit card',
+        ],
     ];
 
     public function run()

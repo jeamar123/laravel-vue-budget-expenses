@@ -15,7 +15,7 @@ class CreateCategoryAction
     {
         $category = Category::create([
             ...$attributes,
-            'user_id' => auth()->user()->id
+            'user_id' => isset($attributes['user_id']) ? $attributes['user_id'] : auth()->user()->id
         ]);
 
         return $category;

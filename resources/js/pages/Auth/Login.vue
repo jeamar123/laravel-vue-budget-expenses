@@ -7,17 +7,18 @@
         v-model="form.username"
         name="username"
         placeholder="Username"
+        :errors="form.errors?.username"
       />
 
       <TextInput
         v-model="form.password"
         type="password"
         placeholder="Password"
+        :errors="form.errors?.password"
       />
 
-      <small class="text-red-500" v-text="form.errors.name" />
-
       <div class="w-full !mt-10">
+        <small class="text-red-500 mb-2 block" v-text="form.errors.message" />
         <Button
           type="submit"
           btn-type="primary"
@@ -28,6 +29,10 @@
           Go
         </Button>
       </div>
+
+      <p class="text-center text-xs text-gray-600 !mt-10">
+        Don't have account yet? <router-link :to="{ name: 'Register' }" class="underline hover:text-primary">Register</router-link>
+      </p>
     </form>
   </Card>
 </template>
@@ -36,7 +41,6 @@
 import { ref, computed } from 'vue'
 import { Button, Card, Loading } from '@/components/common'
 import { TextInput } from '@/components/form'
-import { REQUEST_AUTH_LOGIN } from '@/store/modules/auth'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
@@ -54,17 +58,18 @@ const form = ref({
 
 const login = async () => {
   if (!form.value.username || !form.value.password) {
-    form.value.errors.name = 'username and password is required.'
+    form.value.errors.message = 'username and password is required.'
     return false
   }
 
-  const res = await dispatch(REQUEST_AUTH_LOGIN, form.value)
-  if (res.status !== 400) {
+  const { status, data } = await dispatch('REQUEST_AUTH_LOGIN', form.value)
+  console.log(data)
+  if (status === 200) {
     router.push({
       name: 'Transactions',
     })
   } else {
-    form.value.errors.name = res.data.message
+    form.value.errors.message = data.message
   }
 }
 </script>

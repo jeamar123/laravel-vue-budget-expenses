@@ -6,7 +6,6 @@
 
     <div class="relative flex-1 flex flex-col">
       <Header />
-      <!-- lg:max-h-[100vh-58px]  -->
       <div class="relative flex-1">
         <router-view></router-view>
       </div>

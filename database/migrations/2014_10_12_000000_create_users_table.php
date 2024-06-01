@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('username')->nullable();
             $table->string('password');
-            $table->string('role')->index();
+            $table->string('role')->index()->default('user');
             $table->string('login_type')->default('guest');
             $table->string('status')->default('active');
             $table->string('last_login')->nullable();

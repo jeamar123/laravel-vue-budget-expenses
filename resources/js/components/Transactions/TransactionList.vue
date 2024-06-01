@@ -44,11 +44,13 @@
                 "
                 @click.stop
                 @change="
-                  (value) =>
+                  (value) => {
                     selectAllUnderDate(
                       value,
                       transaction.items.map((item) => item.id),
                     )
+                    emit('checkbox-checked', selectedItems)
+                  }
                 "
               />
             </div>
@@ -178,6 +180,7 @@ const selectAllUnderDate = (selected, transactions) => {
       }
     })
   }
+
   emit('selected', selectedItems.value)
 }
 

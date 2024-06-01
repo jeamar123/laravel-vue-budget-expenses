@@ -52,9 +52,9 @@ class RoleSeeder extends Seeder
             'category:update',
             'category:delete',
             'account:view',
-        'account:create',
-        'account:update',
-        'account:delete',
+            'account:create',
+            'account:update',
+            'account:delete',
         ],
         // Role::USER->value => [
         'user' => [

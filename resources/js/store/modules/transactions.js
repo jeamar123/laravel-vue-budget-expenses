@@ -14,6 +14,7 @@ export const REQUEST_UPLOAD_TRANSACTIONS = 'REQUEST_UPLOAD_TRANSACTIONS'
 export const REQUEST_CREATE_TRANSACTION = 'REQUEST_CREATE_TRANSACTION'
 export const REQUEST_UPDATE_TRANSACTION = 'REQUEST_UPDATE_TRANSACTION'
 export const REQUEST_DELETE_TRANSACTION = 'REQUEST_DELETE_TRANSACTION'
+export const REQUEST_BULK_DELETE_TRANSACTION = 'REQUEST_BULK_DELETE_TRANSACTION'
 
 const filterObj =
   localStorage.getItem('transaction_filters') !== null &&
@@ -246,6 +247,30 @@ const actions = {
         .delete(`/api/transaction/${params.id}`, actions.getHeaders())
         .then((res) => {
           // console.log(res);
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
+          resolve(res)
+        })
+        .catch((err) => {
+          // console.log(err.response)
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
+          resolve(err.response)
+        })
+    })
+  },
+  
+  async [REQUEST_BULK_DELETE_TRANSACTION]({ commit }, params) {
+    return new Promise((resolve) => {
+      commit(UPDATE_LOADING_STATE, {
+        show: true,
+      })
+      axios
+        .post(`/api/transaction/delete/bulk`, params, actions.getHeaders())
+        .then((res) => {
+          console.log(res);
           commit(UPDATE_LOADING_STATE, {
             show: false,
           })

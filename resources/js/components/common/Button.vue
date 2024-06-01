@@ -1,7 +1,10 @@
 <template>
   <component
     :is="as"
-    :class="[getClasses()]"
+    :class="[
+      getClasses(),
+      disabled && 'bg-[#256da1] border-[#256da1] text-white cursor-not-allowed opacity-70 hover:!opacity-70'
+    ]"
     :disabled="variant === 'disabled' || disabled"
     :type="type"
   >

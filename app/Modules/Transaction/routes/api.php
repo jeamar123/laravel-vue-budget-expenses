@@ -7,9 +7,11 @@ use App\Modules\Transaction\Http\Controllers\GetTransactionController;
 use App\Modules\Transaction\Http\Controllers\CreateTransactionController;
 use App\Modules\Transaction\Http\Controllers\UpdateTransactionController;
 use App\Modules\Transaction\Http\Controllers\DeleteTransactionController;
+use App\Modules\Transaction\Http\Controllers\BulkDeleteTransactionController;
 use App\Modules\Transaction\Http\Controllers\LoginTransactionController;
 use App\Modules\Transaction\Http\Controllers\CurrentTransactionController;
 use App\Modules\Transaction\Http\Controllers\ImportTransactionController;
+
 
 use App\Modules\Transaction\Http\Controllers\Category\ListCategoriesController;
 use App\Modules\Transaction\Http\Controllers\Category\CreateCategoryController;
@@ -67,7 +69,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::patch('/{transaction}', UpdateTransactionController::class)
         ->name('transaction.update')
         ->can('update', 'transaction');
+    Route::post('/delete/bulk', BulkDeleteTransactionController::class)
+        ->name('transaction.delete.bulk')
+        ->can('delete', Transaction::class);
     Route::delete('/{transaction}', DeleteTransactionController::class)
         ->name('transaction.delete')
         ->can('delete', 'transaction');
+    
 });

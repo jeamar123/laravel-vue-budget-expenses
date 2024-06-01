@@ -15,7 +15,7 @@ class CreateAccountAction
     {
         $account = Account::create([
             ...$attributes,
-            'user_id' => auth()->user()->id
+            'user_id' => isset($attributes['user_id']) ? $attributes['user_id'] : auth()->user()->id
         ]);
 
         return $account;

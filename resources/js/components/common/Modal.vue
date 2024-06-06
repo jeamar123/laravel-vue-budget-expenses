@@ -45,10 +45,10 @@
             >
               <slot v-if="showHeader" name="header">
                 <div
-                  class="flex justify-between items-center rounded-t-lg py-3 px-4 border-b"
+                  class="flex justify-between items-center rounded-t-lg py-3 px-4 bg-[#f6f7f8]"
                   :class="headerClass"
                 >
-                  <Heading as="h2">
+                  <Heading as="h4" class="font-normal">
                     {{ title || '' }}
                   </Heading>
                   <Button variant="blank" class="" @click="emit('close')">

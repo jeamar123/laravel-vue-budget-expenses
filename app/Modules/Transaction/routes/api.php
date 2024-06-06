@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Modules\Transaction\Http\Controllers\ListTransactionsController;
 use App\Modules\Transaction\Http\Controllers\SummaryTransactionsController;
+use App\Modules\Transaction\Http\Controllers\TransactionsCategoryController;
 use App\Modules\Transaction\Http\Controllers\GetTransactionController;
 use App\Modules\Transaction\Http\Controllers\CreateTransactionController;
 use App\Modules\Transaction\Http\Controllers\UpdateTransactionController;
@@ -56,6 +57,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         ->can('list', Transaction::class);
     Route::get('/summary', SummaryTransactionsController::class)
         ->name('transaction.summary')
+        ->can('list', Transaction::class);
+    Route::get('/by-category', TransactionsCategoryController::class)
+        ->name('transaction.by-category')
         ->can('list', Transaction::class);
     Route::get('/{transaction}', GetTransactionController::class)
         ->name('transaction.show')

@@ -5,7 +5,7 @@
       class="min-w-0 md:min-w-16 w-max md:w-auto"
       placeholder="Actions"
       fixed-placeholder
-      :items="['delete']"
+      :items="['update', 'delete']"
       @update:model-value="emit('action', selectedAction)"
     />
   </div>

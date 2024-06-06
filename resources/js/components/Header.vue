@@ -105,7 +105,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { Icon } from '@/components/common'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
@@ -114,7 +113,6 @@ import { useStore } from 'vuex'
 const store = useStore()
 const dispatch = store.dispatch
 const router = useRouter()
-const isSidemenuFull = ref(true)
 const excludedRoutes = ['Auth', 'Login', 'Redirect']
 const menuItems = router.getRoutes().reduce((arr, { name, meta }) => {
   if (!excludedRoutes.includes(name) && meta?.sidemenu) {

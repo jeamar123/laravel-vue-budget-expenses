@@ -10,6 +10,8 @@ export const UPDATE_TRANSACTIONS_STATE = 'UPDATE_TRANSACTIONS_STATE'
 export const REQUEST_GET_TRANSACTIONS = 'REQUEST_GET_TRANSACTIONS'
 export const REQUEST_GET_TRANSACTIONS_SUMMARY =
   'REQUEST_GET_TRANSACTIONS_SUMMARY'
+export const REQUEST_GET_TRANSACTIONS_BY_CATEGORY =
+  'REQUEST_GET_TRANSACTIONS_BY_CATEGORY'
 export const REQUEST_UPLOAD_TRANSACTIONS = 'REQUEST_UPLOAD_TRANSACTIONS'
 export const REQUEST_CREATE_TRANSACTION = 'REQUEST_CREATE_TRANSACTION'
 export const REQUEST_UPDATE_TRANSACTION = 'REQUEST_UPDATE_TRANSACTION'
@@ -43,24 +45,7 @@ const state = {
     expenses: 0,
     balance: 0,
   },
-  sources: [
-    {
-      id: 1,
-      name: 'cash',
-    },
-    {
-      id: 2,
-      name: 'gcash',
-    },
-    {
-      id: 3,
-      name: 'bank account',
-    },
-    {
-      id: 4,
-      name: 'income',
-    },
-  ],
+  categories: []
 }
 
 const getters = {}
@@ -72,6 +57,7 @@ const mutations = {
     if (payload.headers) state.headers = payload.headers
     if (payload.summary) state.summary = payload.summary
     if (payload.filters) state.filters = payload.filters
+    if (payload.categories) state.categories = payload.categories
   },
 }
 
@@ -124,10 +110,8 @@ const actions = {
 
   async [REQUEST_GET_TRANSACTIONS_SUMMARY]({ commit }) {
     let params = {
-      start: format(new Date(), 'yyyy-MM-dd'),
-      end: format(new Date(), 'yyyy-MM-dd'),
-      // start: state.filters.start,
-      // end: state.filters.end,
+      start: state.filters.start,
+      end: state.filters.end,
     }
     params.query = `?${objToURLParams(params)}`
 
@@ -141,6 +125,40 @@ const actions = {
           // console.log(res)
           commit(UPDATE_TRANSACTIONS_STATE, {
             summary: res.data.summary,
+          })
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
+          resolve(res)
+        })
+        .catch((err) => {
+          console.log(err.response)
+          handleErr(err)
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
+          resolve(err.response)
+        })
+    })
+  },
+
+  async [REQUEST_GET_TRANSACTIONS_BY_CATEGORY]({ commit }) {
+    let params = {
+      start: state.filters.start,
+      end: state.filters.end,
+    }
+    params.query = `?${objToURLParams(params)}`
+
+    return new Promise((resolve) => {
+      commit(UPDATE_LOADING_STATE, {
+        show: true,
+      })
+      axios
+        .get(`/api/transaction/by-category${params.query}`, actions.getHeaders())
+        .then((res) => {
+          console.log(res)
+          commit(UPDATE_TRANSACTIONS_STATE, {
+            categories: res.data.data,
           })
           commit(UPDATE_LOADING_STATE, {
             show: false,
@@ -261,7 +279,7 @@ const actions = {
         })
     })
   },
-  
+
   async [REQUEST_BULK_DELETE_TRANSACTION]({ commit }, params) {
     return new Promise((resolve) => {
       commit(UPDATE_LOADING_STATE, {
@@ -270,7 +288,7 @@ const actions = {
       axios
         .post(`/api/transaction/delete/bulk`, params, actions.getHeaders())
         .then((res) => {
-          console.log(res);
+          console.log(res)
           commit(UPDATE_LOADING_STATE, {
             show: false,
           })

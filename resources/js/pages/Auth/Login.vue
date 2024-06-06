@@ -2,7 +2,7 @@
   <Loading v-if="isLoading" />
   <Card class="w-[450px] !py-6 !px-6">
     <h5 class="text-center text-xl font-medium mb-8" v-text="`Login`" />
-    <form class="space-y-5" @submit.prevent="login">
+    <form class="space-y-4" @submit.prevent="login">
       <TextInput
         v-model="form.username"
         name="username"
@@ -17,7 +17,7 @@
         :errors="form.errors?.password"
       />
 
-      <div class="w-full !mt-10">
+      <div class="w-full !mt-5">
         <small class="text-red-500 mb-2 block" v-text="form.errors.message" />
         <Button
           type="submit"
@@ -31,7 +31,12 @@
       </div>
 
       <p class="text-center text-xs text-gray-600 !mt-10">
-        Don't have account yet? <router-link :to="{ name: 'Register' }" class="underline hover:text-primary">Register</router-link>
+        Don't have account yet?
+        <router-link
+          :to="{ name: 'Register' }"
+          class="underline hover:text-primary"
+          >Register</router-link
+        >
       </p>
     </form>
   </Card>
@@ -63,7 +68,6 @@ const login = async () => {
   }
 
   const { status, data } = await dispatch('REQUEST_AUTH_LOGIN', form.value)
-  console.log(data)
   if (status === 200) {
     router.push({
       name: 'Transactions',

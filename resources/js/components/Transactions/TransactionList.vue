@@ -102,7 +102,7 @@
                   <span
                     class="inline-block border border-slate-400 py-[1px] px-1 rounded text-xs"
                   >
-                    {{ item.category?.name || 'uncategorized' }}
+                    {{ item.category?.name || 'Uncategorized' }}
                   </span>
                 </div>
               </div>

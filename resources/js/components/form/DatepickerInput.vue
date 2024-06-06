@@ -3,7 +3,7 @@
     <div :class="wrapperClass">
       <label
         v-if="label"
-        class="text-sm block mb-1"
+        class="text-xs block font-semibold mb-1"
         :class="[
           {
             'text-gray-500 cursor-not-allowed': readOnly,
@@ -17,7 +17,7 @@
     <div class="relative">
       <VueDatePicker
         v-model="initialValue"
-        input-class-name="border-0 rounded-none py-2 px-1 border-b border-form-border outline-none text-sm read-only:border-gray-200 read-only:text-gray-500 read-only:cursor-not-allowed transition-all bg-white text-slate-800 font-sans"
+        input-class-name="rounded py-2 px-2 border border-form-border outline-none text-sm read-only:border-gray-200 read-only:text-gray-500 read-only:cursor-not-allowed transition-all bg-white text-slate-800 font-sans focus:border-gray-900"
         :auto-apply="true"
         :hide-input-icon="true"
         :clearable="false"

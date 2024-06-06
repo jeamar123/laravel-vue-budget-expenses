@@ -2,8 +2,6 @@
   <main
     class="flex flex-col lg:flex-row h-screen font-sans text-sm text-slate-950 bg-[#F5F8FB]"
   >
-    <!-- <Sidemenu /> -->
-
     <div class="relative flex-1 flex flex-col">
       <Header />
       <div class="relative flex-1">
@@ -22,7 +20,6 @@
 
 <script setup>
 import { computed } from 'vue'
-import Sidemenu from '@/components/Sidemenu.vue'
 import Header from '@/components/Header.vue'
 import { NotificationAlert } from '@/components/common'
 import { useStore } from 'vuex'

@@ -3,7 +3,7 @@
     <div :class="wrapperClass">
       <label
         v-if="label"
-        class="text-sm block mb-1"
+        class="text-xs block font-semibold mb-1"
         :class="[
           {
             'text-gray-500 cursor-not-allowed': readOnly,
@@ -19,7 +19,7 @@
         :value="modelValue"
         :type="type"
         :placeholder="placeholder"
-        class="w-full border-b border-form-border px-1 pt-1 pb-2 outline-none text-sm read-only:border-gray-200 read-only:text-gray-500 read-only:cursor-not-allowed block autofill:!bg-white transition-all bg-white text-slate-800"
+        class="w-full rounded border border-form-border px-2 py-2 outline-none text-sm read-only:border-gray-200 read-only:text-gray-500 read-only:cursor-not-allowed block autofill:!bg-white transition-all bg-white text-slate-800"
         :class="[
           !readOnly ? 'focus:border-gray-900' : '',
           errors.length ? 'border-red-500' : '',

@@ -3,7 +3,7 @@
     <div :class="wrapperClass">
       <label
         v-if="label"
-        class="text-sm block mb-1"
+        class="text-xs block font-semibold mb-1"
         :class="[
           {
             '': readOnly,
@@ -23,10 +23,11 @@
       >
         <div class="relative">
           <ListboxButton
-            class="relative w-full bg-white py-2 px-1 text-left outline-none text-xs border-b border-form-border text-slate-800 min-h-[33px]"
+            class="relative w-full bg-white py-2 px-2 rounded text-left outline-none text-sm border border-form-border text-slate-800 min-h-[35px]"
             :class="[
               errors.length && 'border-red-500',
               readOnly && 'opacity-80 !bg-slate-50 cursor-not-allowed',
+              !readOnly && 'focus:border-gray-900',
               buttonClass,
             ]"
           >
@@ -49,7 +50,7 @@
             leave-to-class="opacity-0"
           >
             <ListboxOptions
-              class="absolute max-h-60 border w-full overflow-auto rounded-md bg-white z-[5] outline-none"
+              class="absolute max-h-60 border w-full overflow-auto rounded-md bg-white z-[5] outline-none text-sm"
               :class="[
                 dropdownDirection === 'bottom'
                   ? 'bottom-10 md:bottom-auto md:top-10'
@@ -59,6 +60,7 @@
               <ListboxOption
                 v-for="item in items"
                 :key="item.id"
+                v-slot="{ active }"
                 :value="item"
                 as="template"
               >
@@ -68,6 +70,9 @@
                     item === modelValue
                       ? 'bg-primary text-white'
                       : 'text-gray-900 hover:bg-primary hover:text-white',
+                    active
+                      ? 'bg-primary text-white'
+                      : '!bg-white !text-gray-900',
                     'relative select-none p-2 capitalize border-b outline-none',
                   ]"
                 >

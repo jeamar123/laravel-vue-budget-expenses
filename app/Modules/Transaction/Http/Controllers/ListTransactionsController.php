@@ -8,7 +8,6 @@ use App\Modules\Transaction\Http\Resources\TransactionResource;
 use Illuminate\Http\JsonResponse;
 use App\Traits\TablePaginationTrait;
 use Illuminate\Http\Request;
-use DB;
 use Carbon\Carbon;
 
 class ListTransactionsController

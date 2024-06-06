@@ -10,7 +10,7 @@ use App\Modules\Transaction\Actions\Category\CreateCategoryAction;
 
 class CreateUserAction
 {
-    public const ACCOUNTS = [ 'cash', 'bank account', 'credit_card', 'debit_card' ];
+    public const ACCOUNTS = [ 'cash', 'bank account', 'credit card', 'debit card' ];
     public const CATEGORIES = [
         [
             'name' => 'food',

@@ -2,64 +2,70 @@
   <Modal
     :show="show"
     title="Transaction Filters"
-    wrapper-class="lg:max-w-[350px]"
+    wrapper-class="lg:max-w-[300px]"
     @close="emit('close')"
   >
     <template #body-footer>
-      <div class="space-y-2 px-6 pt-6 pb-8 max-w-[200px]">
-        <Dropdown
-          v-model="selectedView"
-          class="!min-w-0"
-          button-class="justify-between"
-          :items="['daily', 'monthly', 'calendar']"
-          @update:model-value="emitChanges"
-        />
-        <PopoverWrapper
-          v-slot="{ close }"
-          button-class="bg-white justify-between"
-          panel-class="w-max"
-          :button-label="dateButtonLabel"
-        >
-          <template v-if="selectedView === 'daily'">
-            <Datepicker
-              v-model="selectedDay"
-              @update:model-value="
-                (value) => {
-                  dateChanged(value, close)
-                }
-              "
-            />
-          </template>
+      <div class="space-y-4 px-6 py-6">
+        <div class="">
+          <label class="text-xs block font-semibold mb-1">Type</label>
+          <Dropdown
+            v-model="selectedView"
+            class="!min-w-0"
+            button-class="justify-between"
+            :items="['daily', 'monthly', 'calendar']"
+          />
+        </div>
 
-          <template v-if="selectedView === 'monthly'">
-            <Datepicker
-              v-model="selectedMonth"
-              :month-picker="true"
-              @update:model-value="
-                (value) => {
-                  dateChanged(value, close)
-                }
-              "
-            />
-          </template>
+        <div>
+          <label class="text-xs block font-semibold mb-1">Date</label>
+          <PopoverWrapper
+            v-slot="{ close }"
+            button-class="bg-white justify-between"
+            panel-class="w-max"
+            :button-label="dateButtonLabel"
+          >
+            <template v-if="selectedView === 'daily'">
+              <Datepicker
+                v-model="selectedDay"
+                @update:model-value="
+                  (value) => {
+                    dateChanged(value, close)
+                  }
+                "
+              />
+            </template>
 
-          <template v-if="selectedView === 'calendar'">
-            <Datepicker
-              v-model="selectedRange"
-              :range="true"
-              @update:model-value="
-                (value) => {
-                  dateChanged(value, close)
-                }
-              "
-            />
-          </template>
-        </PopoverWrapper>
+            <template v-if="selectedView === 'monthly'">
+              <Datepicker
+                v-model="selectedMonth"
+                :month-picker="true"
+                @update:model-value="
+                  (value) => {
+                    dateChanged(value, close)
+                  }
+                "
+              />
+            </template>
+
+            <template v-if="selectedView === 'calendar'">
+              <Datepicker
+                v-model="selectedRange"
+                :range="true"
+                @update:model-value="
+                  (value) => {
+                    dateChanged(value, close)
+                  }
+                "
+              />
+            </template>
+          </PopoverWrapper>
+        </div>
       </div>
 
-      <div class="flex items-center justify-end gap-x-4 p-4 border-t">
+      <div class="flex items-center justify-end gap-x-4 p-4">
         <Button variant="blank"> Cancel </Button>
-        <Button type="submit"> Submit </Button>
+        <Button @click="emitChanges"> Submit </Button>
       </div>
     </template>
   </Modal>
@@ -77,7 +83,7 @@ import {
 import { format } from '@/composables/date'
 import { startOfMonth, endOfMonth } from 'date-fns'
 
-const props = defineProps({
+defineProps({
   show: {
     type: Boolean,
     default: () => false,
@@ -141,7 +147,7 @@ const dateChanged = (date, close) => {
   }
   close()
 
-  emitChanges()
+  // emitChanges()
 }
 
 const emitChanges = () => {

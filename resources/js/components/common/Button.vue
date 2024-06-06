@@ -3,7 +3,8 @@
     :is="as"
     :class="[
       getClasses(),
-      disabled && 'bg-[#256da1] border-[#256da1] text-white cursor-not-allowed opacity-70 hover:!opacity-70'
+      disabled &&
+        'bg-[#256da1] border-[#256da1] text-white cursor-not-allowed opacity-70 hover:!opacity-70',
     ]"
     :disabled="variant === 'disabled' || disabled"
     :type="type"
@@ -42,7 +43,7 @@ const getClasses = () => {
       classes = 'bg-secondary border-secondary text-white'
       break
     case 'outline':
-      classes = 'border-2 border-primary text-primary'
+      classes = 'border border-primary text-primary'
       break
     case 'disabled':
       classes =

@@ -2,7 +2,7 @@
   <Modal
     :show="show"
     title="Create Transaction"
-    wrapper-class="lg:max-w-[500px]"
+    wrapper-class="lg:max-w-[600px]"
     @close="emit('close')"
   >
     <template #body-footer>

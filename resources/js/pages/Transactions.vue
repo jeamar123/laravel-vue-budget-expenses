@@ -1,41 +1,47 @@
 <template>
   <section class="container md:pt-2 lg:pt-5 md:px-2 lg:px-8 h-full">
-    <div class="flex flex-col lg:flex-row-reverse gap-y-2 gap-x-4">
-      <div class="flex-1 flex flex-col md:gap-y-2 shrink-0 lg:pt-[50px]">
-        <Card class="!py-2 md:!p-5">
-          <Heading as="h5" class="text-slate-800 mb-1">Income</Heading>
-          <p class="text-2xl font-medium">
-            {{ formatNumber(summary.income) }}
-          </p>
-        </Card>
+    <div class="flex flex-col lg:flex-row-reverse gap-y-10 gap-x-4">
+      <div class="flex-1 flex flex-col space-y-3 shrink-0 lg:pt-[50px]">
+        <TransactionSummary />
 
-        <Card class="!py-2 md:!p-5">
-          <Heading as="h5" class="text-slate-800 mb-1">Expenses</Heading>
-          <p class="text-2xl font-medium">
-            {{ formatNumber(summary.expenses) }}
-          </p>
-        </Card>
-
-        <Card class="!py-2 md:!p-5">
-          <Heading as="h5" class="text-slate-800 mb-1">Balance</Heading>
-          <p
-            class="text-2xl font-medium"
-            :class="summary.balance < 0 ? 'text-red-800' : 'text-green-800'"
-          >
-            {{ formatNumber(summary.balance) }}
-          </p>
-        </Card>
+        <TransactionCategories />
       </div>
 
       <div class="lg:w-9/12 h-max">
         <div
-          class="px-2 md:px-0 mb-3 flex flex-row items-center justify-between gap-y-2 gap-x-2"
+          class="px-2 md:px-0 mb-3 flex flex-row items-start md:items-center justify-between gap-y-2 gap-x-2"
         >
-          <div class="flex flex-row gap-y-2 gap-x-2 md:gap-x-4 md:items-center">
+          <div
+            class="flex flex-col md:flex-row gap-y-5 gap-x-2 md:gap-x-4 md:items-center"
+          >
             <TransactionsActions
               v-if="selectedTransactionList.length"
               @action="actionChanged"
             />
+
+            <div class="flex items-center gap-x-2">
+              <span class="text-xs">Filters: </span>
+              <div class="flex gap-x-2">
+                <div
+                  v-if="
+                    Object.keys(filters).includes('start') &&
+                    Object.keys(filters).includes('end')
+                  "
+                  class="bg-gray-200 rounded py-[2px] px-2 text-[11px]"
+                >
+                  {{ format(filters['start'], 'MMM dd, yyyy') }} -
+                  {{ format(filters['end'], 'MMM dd, yyyy') }}
+                </div>
+                <!-- <template
+                  v-for="key in Object.keys(filters).filter((key) => key !== 'start' && key !== 'end')"
+                  :key="key"
+                >
+                  <div class="bg-gray-200 rounded py-[2px] px-2 text-[11px]">
+                    {{ filters[key] }}
+                  </div>
+                </template> -->
+              </div>
+            </div>
           </div>
 
           <div class="flex md:items-center justify-end flex-1 gap-x-2">
@@ -154,19 +160,20 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { Heading, Card, Button, Icon, Alert } from '@/components/common'
+import { Button, Icon, Alert } from '@/components/common'
 import {
   CreateTransactionModal,
-  TransactionsFilter,
   TransactionFilterModal,
   UpdateTransactionModal,
   DeleteTransaction,
   TransactionsActions,
   TransactionList,
   ImportTransactionsModal,
+  TransactionSummary,
+  TransactionCategories,
 } from '@/components/Transactions'
 import { useStore } from 'vuex'
-import { formatNumber } from '@/composables/number'
+import { format } from '@/composables/date'
 
 const store = useStore()
 const dispatch = store.dispatch
@@ -174,16 +181,16 @@ const commit = store.commit
 
 const transactions = computed(() => store.state.transactions.items)
 const filters = computed(() => store.state.transactions.filters)
-const summary = computed(() => store.state.transactions.summary)
 
 const selectedTransaction = ref(null)
 const selectedTransactionList = ref([])
 const isCreateModalShown = ref(false)
 const isEditModalShown = ref(false)
 const isDeleteAlertShown = ref(false)
-const isDeleteBulkAlertShown = ref(false)
 const isFilterModalShown = ref(false)
 const isUploadModalShown = ref(false)
+const isUpdateBulkModalShown = ref(false)
+const isDeleteBulkAlertShown = ref(false)
 
 onMounted(() => {
   getTransactions()
@@ -193,6 +200,7 @@ onMounted(() => {
 
 const getTransactions = () => {
   dispatch('REQUEST_GET_TRANSACTIONS_SUMMARY')
+  dispatch('REQUEST_GET_TRANSACTIONS_BY_CATEGORY')
   dispatch('REQUEST_GET_TRANSACTIONS')
 }
 
@@ -208,16 +216,21 @@ const dateChanged = (dates) => {
 }
 
 const actionChanged = (action) => {
+  if (action === 'update') {
+    isUpdateBulkModalShown.value = true
+  }
   if (action === 'delete') {
     isDeleteBulkAlertShown.value = true
   }
 }
 
 const deleteBulkTransactions = async () => {
-  let res = await dispatch('REQUEST_BULK_DELETE_TRANSACTION', { transactions: selectedTransactionList.value })
-  console.log(res)
-  if(res.status === 201){
+  let res = await dispatch('REQUEST_BULK_DELETE_TRANSACTION', {
+    transactions: selectedTransactionList.value,
+  })
+  if (res.status === 200) {
     getTransactions()
+    isDeleteAlertShown.value = false
     isDeleteBulkAlertShown.value = false
   }
 }

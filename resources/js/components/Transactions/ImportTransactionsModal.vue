@@ -11,7 +11,7 @@
     "
   >
     <template #body-footer>
-      <div class="space-y-2 px-6 pt-6 pb-8">
+      <div class="space-y-2 px-6 py-4">
         <div
           class="group relative border border-dashed border-slate-400 hover:border-slate-900 w-full h-[180px] rounded flex items-center justify-center cursor-pointer mb-3 transition-all ease-in duration-200"
         >
@@ -44,7 +44,7 @@
         </div>
       </div>
 
-      <div class="flex items-center justify-end gap-x-4 p-4 border-t">
+      <div class="flex items-center justify-end gap-x-4 p-4">
         <Button variant="blank" @click="emit('close')"> Cancel </Button>
         <Button
           type="button"
@@ -79,14 +79,12 @@ const dispatch = store.dispatch
 const form = ref({
   file: null,
 })
-const results = ref([])
 const file = ref(null)
 
 const upload = async () => {
   let params = new FormData()
   params.append('file', form.value.file)
   const res = await dispatch('REQUEST_UPLOAD_TRANSACTIONS', params)
-  console.log(res)
   if (res.status === 201) {
     dispatch('SHOW_NOTIF_ALERT', {
       message: `${res.data.sucessfulImport.length} successful imports. ${res.data.failedImport.length} failed.`,

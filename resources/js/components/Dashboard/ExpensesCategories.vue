@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { Heading, Card } from '@/components/common'
 import { useStore } from 'vuex'
 import { formatNumber } from '@/composables/number'
@@ -37,9 +37,5 @@ const transaction_categories = computed(() => {
       .filter(({ total }) => total !== 0)
       .map(({ total }) => total),
   }
-})
-
-onMounted(() => {
-  dispatch('REQUEST_GET_TRANSACTIONS_BY_CATEGORY')
 })
 </script>

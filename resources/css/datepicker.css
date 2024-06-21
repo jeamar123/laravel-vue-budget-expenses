@@ -8,11 +8,9 @@
 }
 .dp__overlay{
     width: 100% !important;
-    height: auto !important;
-    padding: 0px 12px;
 }
-.dp__overlay_container{
-    height: auto !important;
+.dp__selection_grid_header{
+    padding: 0px 12px;
 }
 .dp--menu--inner-stretched{
     padding: 6px 0px;

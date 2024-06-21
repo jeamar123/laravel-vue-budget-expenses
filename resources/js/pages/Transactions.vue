@@ -8,6 +8,7 @@
       </div>
 
       <div class="lg:w-9/12 h-max">
+        
         <div
           class="px-2 md:px-0 mb-3 flex flex-row items-start md:items-center justify-between gap-y-2 gap-x-2"
         >
@@ -224,11 +225,11 @@ const getTransactions = async () => {
 
 const dateChanged = (dates) => {
   commit('UPDATE_TRANSACTIONS_STATE', {
-    ...filters,
     filters: {
+      ...filters.value,
       start: dates.start,
       end: dates.end,
-    },
+    }
   })
   getTransactions()
 }

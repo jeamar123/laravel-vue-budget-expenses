@@ -24,11 +24,7 @@
             <template v-if="selectedView === 'daily'">
               <Datepicker
                 v-model="selectedDay"
-                @update:model-value="
-                  (value) => {
-                    dateChanged(value, close)
-                  }
-                "
+                @update:model-value="dateChanged"
               />
             </template>
 
@@ -36,11 +32,7 @@
               <Datepicker
                 v-model="selectedMonth"
                 :month-picker="true"
-                @update:model-value="
-                  (value) => {
-                    dateChanged(value, close)
-                  }
-                "
+                @update:model-value="dateChanged"
               />
             </template>
 
@@ -48,11 +40,7 @@
               <Datepicker
                 v-model="selectedRange"
                 :range="true"
-                @update:model-value="
-                  (value) => {
-                    dateChanged(value, close)
-                  }
-                "
+                @update:model-value="dateChanged"
               />
             </template>
           </div>
@@ -158,7 +146,7 @@ const selectedMonth = ref({
 const selectedRange = ref([new Date(), new Date()])
 
 // When Datepicker value is change, sync other view dates
-const dateChanged = (date, close) => {
+const dateChanged = (date) => {
   if (selectedView.value === 'daily') {
     selectedMonth.value = {
       month: Number(format(selectedDay.value, 'M')) - 1,
@@ -184,9 +172,6 @@ const dateChanged = (date, close) => {
       year: Number(format(selectedRange.value[0], 'yyyy')),
     }
   }
-  close()
-
-  // emitChanges()
 }
 
 const emitChanges = () => {

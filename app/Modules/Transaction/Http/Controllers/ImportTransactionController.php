@@ -20,8 +20,8 @@ class ImportTransactionController
         
         return response()->json([
             'imported' => $result['collection'],
-            'sucessfulImport' => $result['success'],
-            'failedImport' => $result['failed'],
+            'sucessful' => $result['success'],
+            'failed' => $result['failed'],
             'message' => 'Success',
         ], 201);
     }

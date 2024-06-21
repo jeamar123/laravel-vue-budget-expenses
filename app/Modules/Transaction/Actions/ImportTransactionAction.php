@@ -3,6 +3,7 @@
 namespace App\Modules\Transaction\Actions;
 
 use App\Modules\Transaction\Models\Transaction;
+use App\Modules\Transaction\Models\Category;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role as SpatieRole;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -23,6 +24,19 @@ class ImportTransactionAction
         $failed = [];
 
         foreach ($collection as $index => $transaction) {
+            if(isset($transaction['Category'])){
+
+                $checkCategory = Category::where('name', $transaction['Category'])->first();
+
+                if(!$checkCategory){
+                    Category::create([
+                        'name' => $transaction['Category'],
+                        'type' => isset($transaction['Type']) ? $transaction['Type'] : 'expenses',
+                        'user_id' => $this->auth->user()->id,
+                    ]);
+                }
+            }
+
             $upload = Transaction::create([
                   'user_id' => $this->auth->user()->id,
                   'description' => isset($transaction['Description']) ? $transaction['Description'] : '', 

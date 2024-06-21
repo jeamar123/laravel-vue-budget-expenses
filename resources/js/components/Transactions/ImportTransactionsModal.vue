@@ -87,7 +87,7 @@ const upload = async () => {
   const res = await dispatch('REQUEST_UPLOAD_TRANSACTIONS', params)
   if (res.status === 201) {
     dispatch('SHOW_NOTIF_ALERT', {
-      message: `${res.data.sucessfulImport.length} successful imports. ${res.data.failedImport.length} failed.`,
+      message: `${res.data.sucessful.length} successful imports. ${res.data.failed.length} failed.`,
     })
     emit('success')
   }

@@ -10,9 +10,9 @@ export const UPDATE_DASHBOARD_STATE = 'UPDATE_DASHBOARD_STATE'
 export const FETCH_BALANCE_REPORT = 'FETCH_BALANCE_REPORT'
 
 const filterObj =
-  localStorage.getItem('dashboard_filters') !== null &&
-  localStorage.getItem('dashboard_filters') !== 'null'
-    ? JSON.parse(localStorage.getItem('dashboard_filters'))
+  localStorage.getItem('transaction_filters') !== null &&
+  localStorage.getItem('transaction_filters') !== 'null'
+    ? JSON.parse(localStorage.getItem('transaction_filters'))
     : null
 
 const state = {
@@ -27,7 +27,10 @@ const getters = {}
 
 const mutations = {
   async [UPDATE_DASHBOARD_STATE](state, payload) {
-    if (payload.filters) state.filters = payload.filters
+    if (payload.filters) {
+      state.filters = payload.filters
+      localStorage.setItem('transaction_filters', JSON.stringify(payload.filters))
+    }
     if (payload.balanceReport) state.balanceReport = payload.balanceReport
   },
 }

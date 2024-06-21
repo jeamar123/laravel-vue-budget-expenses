@@ -34,8 +34,6 @@ const state = {
   },
   headers: [],
   filters: filterObj || {
-    order: 'desc',
-    orderBy: null,
     search: null,
     start: format(startOfMonth(new Date()), 'yyyy-MM-dd'),
     end: format(endOfMonth(new Date()), 'yyyy-MM-dd'),
@@ -56,7 +54,10 @@ const mutations = {
     if (payload.pagination) state.pagination = payload.pagination
     if (payload.headers) state.headers = payload.headers
     if (payload.summary) state.summary = payload.summary
-    if (payload.filters) state.filters = payload.filters
+    if (payload.filters) {
+      state.filters = payload.filters
+      localStorage.setItem('transaction_filters', JSON.stringify(payload.filters))
+    }
     if (payload.categories) state.categories = payload.categories
   },
 }

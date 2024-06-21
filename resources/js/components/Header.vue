@@ -1,7 +1,7 @@
 <template>
   <header class="sticky top-0 bg-slate-900 shadow z-[4]">
     <div class="flex items-center justify-between px-2 lg:px-8 py-2">
-      <div>
+      <div class="block lg:hidden">
         <Popover v-slot="{ open, close }">
           <PopoverButton
             class="outline-none relative inline-flex items-center justify-center rounded p-[6px] text-white hover:bg-primary hover:text-white outline-none border border-slate-600"
@@ -46,6 +46,29 @@
         </Popover>
       </div>
 
+      <div class="flex items-center gap-x-3">
+        <div class="logo">
+          <!-- <router-link :to="{ name: 'Transactions' }">
+            <Icon name="BanknotesIconOutline" class="w-9 lg:w-7 text-white" />
+          </router-link> -->
+        </div>
+        <div class="hidden lg:flex items-center gap-x-3">
+          <router-link
+            v-for="{ label, routeName } in menuItems"
+            :key="label"
+            :class="[
+              routeName === $route.name
+                ? 'text-white underline'
+                : 'text-slate-400 hover:text-white hover:underline',
+              'px-4 py-3 text-xs w-full text-left',
+            ]"
+            :to="{ name: routeName }"
+          >
+            {{ label }}
+          </router-link>
+        </div>
+      </div>
+
       <div>
         <Popover v-slot="{ close }">
           <PopoverButton class="outline-none flex items-center">
@@ -68,6 +91,11 @@
               class="absolute left-0 md:left-auto right-auto md:right-5 top-[56px] w-full md:w-[200px] border-t border-slate-700 pt-2 pb-5 bg-slate-900"
             >
               <div class="container mx-auto lg:px-3">
+                <div
+                  class="px-4 lg:px-6 py-3 text-sm w-full text-left block text-white font-semibold"
+                >
+                  {{ user.first_name }} {{ user.last_name }}
+                </div>
                 <button
                   class="px-4 lg:px-6 py-3 text-sm w-full text-left block"
                   :class="
@@ -109,11 +137,17 @@ import { useRouter } from 'vue-router'
 import { Icon } from '@/components/common'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import { useStore } from 'vuex'
+import { computed, onMounted } from 'vue'
 
 const store = useStore()
 const dispatch = store.dispatch
 const router = useRouter()
 const excludedRoutes = ['Auth', 'Login', 'Redirect']
+
+const user = computed(() => store.state.auth.user)
+
+onMounted(() => dispatch('FETCH_CURRENT_USER'))
+
 const menuItems = router.getRoutes().reduce((arr, { name, meta }) => {
   if (!excludedRoutes.includes(name) && meta?.sidemenu) {
     arr.push({

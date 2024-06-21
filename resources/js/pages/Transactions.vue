@@ -72,6 +72,7 @@
         </div>
 
         <TransactionList
+          v-if="!isLoading"
           :transactions="transactions"
           @checkbox-checked="(items) => (selectedTransactionList = items)"
           @show="
@@ -92,6 +93,8 @@
             }
           "
         />
+
+        <Loading v-if="isLoading" placement="internal" :show-text="false"/>
       </div>
     </div>
   </section>
@@ -160,7 +163,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { Button, Icon, Alert } from '@/components/common'
+import { Button, Icon, Alert, Loading } from '@/components/common'
 import {
   CreateTransactionModal,
   TransactionFilterModal,
@@ -191,17 +194,19 @@ const isFilterModalShown = ref(false)
 const isUploadModalShown = ref(false)
 const isUpdateBulkModalShown = ref(false)
 const isDeleteBulkAlertShown = ref(false)
+const isLoading = ref(true)
 
-onMounted(() => {
-  getTransactions()
-  dispatch('REQUEST_GET_CATEGORY')
+onMounted(async () => {
+  isLoading.value = true
+  await getTransactions()
   dispatch('REQUEST_GET_ACCOUNTS')
+  dispatch('REQUEST_GET_CATEGORY')
 })
 
-const getTransactions = () => {
-  dispatch('REQUEST_GET_TRANSACTIONS_SUMMARY')
-  dispatch('REQUEST_GET_TRANSACTIONS_BY_CATEGORY')
-  dispatch('REQUEST_GET_TRANSACTIONS')
+const getTransactions = async () => {
+  await dispatch('REQUEST_GET_TRANSACTIONS_SUMMARY')
+  await dispatch('REQUEST_GET_TRANSACTIONS')
+  isLoading.value = false
 }
 
 const dateChanged = (dates) => {

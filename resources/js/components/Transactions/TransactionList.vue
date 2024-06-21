@@ -1,7 +1,7 @@
 <template>
   <div>
     <Card
-      class="!px-2 !py-3 md:!px-4 md:!py-3 flex items-center gap-x-5 !bg-gray-200"
+      class="!px-2 !py-3 md:!px-4 md:!py-3 flex items-center gap-x-5 md:!bg-gray-200"
     >
       <div class="shrink-0">
         <Checkbox
@@ -26,9 +26,8 @@
         <span class="hidden md:block">Actions</span>
       </div>
     </Card>
-    <div
-      class="md:py-2 md:space-y-2 overflow-y-auto lg:max-h-[calc(100vh-172px)] mr-[-3px] pr-[3px]"
-    >
+    <!-- overflow-y-auto lg:max-h-[calc(100vh-172px)]  -->
+    <div class="md:py-2 md:space-y-2 mr-[-3px] pr-[3px]">
       <template v-for="transaction in transactions" :key="transaction.date">
         <div>
           <Card

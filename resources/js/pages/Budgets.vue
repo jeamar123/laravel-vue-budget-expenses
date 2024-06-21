@@ -3,7 +3,7 @@
     <section class="md:max-w-[800px]">
       <Card class="!pb-0 !pt-2 !px-2 md:!px-4 md:!py-4">
         <div class="mb-3 flex items-center justify-between gap-x-2">
-          <Heading as="h3">Budgets</Heading>
+          <Heading as="h3">Set Budgets</Heading>
         </div>
 
         <div class="">
@@ -24,7 +24,7 @@
           </div>
           <template v-for="category in categories" :key="category.id">
             <div
-              class="grid grid-cols-3 md:flex gap-x-5 px-2 py-3 md:px-4 md:py-3 border-b border-slate-200"
+              class="grid grid-cols-3 md:flex gap-x-5 px-2 py-3 md:px-4 md:py-3 [&:not(:last-child)]:border-b border-slate-200"
             >
               <div class="capitalize block md:hidden">{{ category.name }}</div>
               <div class="flex-1 grid md:grid-cols-4 gap-x-5">
@@ -32,11 +32,11 @@
                   {{ category.name }}
                 </div>
                 <div class="">
-                  <div class="flex gap-x-2">
+                  <div class="flex items-center gap-x-3">
                     <span>{{ formatNumber(category.budget) }}</span>
                     <Button
-                      variant="blank"
-                      class="!px-1 !py-0 hidden md:inline-block"
+                      variant="primary"
+                      class="!px-2 !py-1 !rounded hidden md:inline-block"
                       @click="
                         () => {
                           selectedBudget = category
@@ -44,13 +44,13 @@
                         }
                       "
                     >
-                      <Icon name="PencilSquareIconOutline" class="w-4" />
+                      <Icon name="PencilSquareIcon" class="w-3" />
                     </Button>
                   </div>
                 </div>
                 <div class="">{{ formatNumber(category.spent) }}</div>
                 <div
-                  class="font-medium"
+                  class="font-medium text-base"
                   :class="
                     category.remaining < 0 ? 'text-red-600' : 'text-green-900'
                   "
@@ -59,8 +59,17 @@
                 </div>
               </div>
               <div class="flex md:hidden items-start justify-center">
-                <Button variant="blank" class="!px-1 !py-0">
-                  <Icon name="PencilSquareIconOutline" class="w-4" />
+                <Button
+                  variant="primary"
+                  class="!px-2 !py-1 !rounded"
+                  @click="
+                    () => {
+                      selectedBudget = category
+                      isEditModalShown = true
+                    }
+                  "
+                >
+                  <Icon name="PencilSquareIcon" class="w-4" />
                 </Button>
               </div>
             </div>

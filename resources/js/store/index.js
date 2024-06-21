@@ -5,6 +5,7 @@ import transactions from './modules/transactions'
 import category from './modules/category'
 import accounts from './modules/accounts'
 import budgets from './modules/budgets'
+import dashboard from './modules/dashboard'
 
 export const UPDATE_LOADING_STATE = 'UPDATE_LOADING_STATE'
 export const UPDATE_NOTIF_ALERT_STATE = 'UPDATE_NOTIF_ALERT_STATE'
@@ -52,5 +53,6 @@ export default createStore({
     category,
     accounts,
     budgets,
+    dashboard,
   },
 })

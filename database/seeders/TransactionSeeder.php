@@ -50,8 +50,8 @@ class TransactionSeeder extends Seeder
 
     public function run()
     {
-        foreach (self::TRANSACTIONS as $transaction) {
-            Transaction::create($transaction);
-        }
+        // foreach (self::TRANSACTIONS as $transaction) {
+        //     Transaction::create($transaction);
+        // }
     }
 }

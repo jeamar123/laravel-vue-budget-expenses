@@ -16,8 +16,28 @@ class ListTransactionsController
 
     public function __invoke(Request $request): JsonResponse
     {   
-        $start = date('Y-m-d 00:00:00', strtotime($request->get('start', date('Y-m-d 00:00:00'))));
-        $end = date('Y-m-d 23:59:59', strtotime($request->get('end', date('Y-m-d 23:59:59'))));
+        $table_headers = [
+            ['label' => 'Date', 'key' => 'date'],
+            ['label' => 'Note', 'key' => 'description'],
+            ['label' => 'Total', 'key' => 'total'],
+            ['label' => 'Source', 'key' => 'source'],
+            ['label' => 'Category', 'key' => 'category.name'],
+        ];
+
+        if($request->get('all') == 'true' || $request->get('all') == true){
+            $transactions = Transaction::where('user_id', auth()->user()->id)
+                                                ->orderBy('date', 'desc')
+                                                ->get();
+            
+            return response()->json([
+                'headers' => $table_headers,
+                'data' => $transactions,
+                'test' => 'sdfdsf'
+            ], 200);
+        }
+
+        $start = date('Y-m-d 00:00:00', strtotime($request->get('start')));
+        $end = date('Y-m-d 23:59:59', strtotime($request->get('end')));
 
         $transactions = Transaction::where('user_id', auth()->user()->id)
                                         ->orderBy('date', 'desc')
@@ -44,14 +64,6 @@ class ListTransactionsController
                 ]
             );
         }
-
-        $table_headers = [
-            ['label' => 'Date', 'key' => 'date'],
-            ['label' => 'Note', 'key' => 'description'],
-            ['label' => 'Total', 'key' => 'total'],
-            ['label' => 'Source', 'key' => 'source'],
-            ['label' => 'Category', 'key' => 'category.name'],
-        ];
 
         return response()->json([
             'headers' => $table_headers,

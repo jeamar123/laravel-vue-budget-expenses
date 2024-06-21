@@ -1,0 +1,1 @@
+import{o as c,d as n,S as a}from"./app-qiqL2HN5.js";const d=(e,o)=>{const r=e.__vccOpts||e;for(const[t,s]of o)r[t]=s;return r},_={},l={class:"py-4 px-4 rounded-lg bg-white border border-slate-200"};function f(e,o){return c(),n("div",l,[a(e.$slots,"default")])}const i=d(_,[["render",f]]);export{i as C};

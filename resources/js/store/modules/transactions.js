@@ -45,7 +45,7 @@ const state = {
     expenses: 0,
     balance: 0,
   },
-  categories: []
+  categories: [],
 }
 
 const getters = {}
@@ -70,21 +70,24 @@ const actions = {
     }
   },
 
-  async [REQUEST_GET_TRANSACTIONS]({ commit }) {
-    let params = {
+  async [REQUEST_GET_TRANSACTIONS]({ commit }, params = {}) {
+    let queryParams = {
       page: state.pagination.current_page,
       perPage: state.pagination.per_page,
       start: state.filters.start,
       end: state.filters.end,
     }
-    params.query = `?${objToURLParams(params)}`
+    queryParams.query = `?${objToURLParams(queryParams)}`
 
     return new Promise((resolve) => {
       commit(UPDATE_LOADING_STATE, {
         show: true,
       })
       axios
-        .get(`/api/transaction${params.query}`, actions.getHeaders())
+        .get(
+          `/api/transaction${!params?.all ? queryParams.query : '?all=true'}`,
+          actions.getHeaders(),
+        )
         .then((res) => {
           // console.log(res)
           commit(UPDATE_TRANSACTIONS_STATE, {
@@ -154,9 +157,12 @@ const actions = {
         show: true,
       })
       axios
-        .get(`/api/transaction/by-category${params.query}`, actions.getHeaders())
+        .get(
+          `/api/transaction/by-category${params.query}`,
+          actions.getHeaders(),
+        )
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           commit(UPDATE_TRANSACTIONS_STATE, {
             categories: res.data.data,
           })

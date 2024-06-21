@@ -8,8 +8,11 @@ use App\Modules\User\Http\Controllers\UpdateUserController;
 use App\Modules\User\Http\Controllers\DeleteUserController;
 use App\Modules\User\Http\Controllers\LoginUserController;
 use App\Modules\User\Http\Controllers\RegisterUserController;
-use App\Modules\User\Http\Controllers\CurrentUserController;
 use App\Modules\User\Http\Controllers\ImportUserController;
+
+use App\Modules\User\Http\Controllers\CurrentUserController;
+use App\Modules\User\Http\Controllers\UpdateUserSettingsController;
+use App\Modules\User\Http\Controllers\UpdateUserPasswordController;
 
 use App\Modules\User\Http\Controllers\Account\ListAccountsController;
 use App\Modules\User\Http\Controllers\Account\CreateAccountController;
@@ -36,13 +39,19 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
             ->can('delete', Account::class);
     }); 
 
+    Route::get('/settings', CurrentUserController::class)
+        ->name('user.settings')
+        ->can('show', User::class);
+    Route::patch('/settings', UpdateUserSettingsController::class)
+        ->name('user.settings.update')
+        ->can('update', User::class);
+    Route::patch('/password', UpdateUserPasswordController::class)
+        ->name('user.password.update')
+        ->can('update', User::class);
 
     Route::get('/', ListUsersController::class)
         ->name('user.list')
         ->can('list', User::class);
-    Route::get('/current', CurrentUserController::class)
-        ->name('user.current')
-        ->can('show', User::class);
     Route::get('/{user}', GetUserController::class)
         ->name('user.show')
         ->can('show', User::class);
@@ -58,6 +67,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/{user}', DeleteUserController::class)
         ->name('user.delete')
         ->can('delete', 'user');
+
+    
 });
 
 Route::post('/login', LoginUserController::class)

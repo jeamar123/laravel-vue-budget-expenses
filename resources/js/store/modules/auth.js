@@ -8,6 +8,8 @@ export const REQUEST_AUTH_LOGIN = 'REQUEST_AUTH_LOGIN'
 export const REQUEST_AUTH_REGISTER = 'REQUEST_AUTH_REGISTER'
 export const REQUEST_AUTH_LOGOUT = 'REQUEST_AUTH_LOGOUT'
 export const FETCH_CURRENT_USER = 'FETCH_CURRENT_USER'
+export const UPDATE_ACCOUNT_SETTINGS = 'UPDATE_ACCOUNT_SETTINGS'
+export const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
 
 const state = {
   isLoggedIn: false,
@@ -117,9 +119,9 @@ const actions = {
         show: true,
       })
       axios
-        .get('/api/user', actions.getHeaders())
+        .get('/api/user/settings', actions.getHeaders())
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           commit(UPDATE_AUTH_STATE, {
             user: res.data.user,
           })
@@ -130,6 +132,56 @@ const actions = {
         })
         .catch((err) => {
           console.log(err.response)
+          handleErr(err)
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
+          resolve(err.response)
+        })
+    })
+  },
+
+  async [UPDATE_ACCOUNT_SETTINGS]({ commit }, params) {
+    return new Promise((resolve) => {
+      commit(UPDATE_AUTH_STATE, {
+        isLoading: true,
+      })
+      axios
+        .patch(`/api/user/settings`, params, actions.getHeaders())
+        .then((res) => {
+          console.log(res)
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
+          resolve(res)
+        })
+        .catch((err) => {
+          // console.log(err.response)
+          handleErr(err)
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
+          resolve(err.response)
+        })
+    })
+  },
+
+  async [UPDATE_PASSWORD]({ commit }, params) {
+    return new Promise((resolve) => {
+      commit(UPDATE_AUTH_STATE, {
+        isLoading: true,
+      })
+      axios
+        .patch(`/api/user/password`, params, actions.getHeaders())
+        .then((res) => {
+          console.log(res)
+          commit(UPDATE_LOADING_STATE, {
+            show: false,
+          })
+          resolve(res)
+        })
+        .catch((err) => {
+          // console.log(err.response)
           handleErr(err)
           commit(UPDATE_LOADING_STATE, {
             show: false,

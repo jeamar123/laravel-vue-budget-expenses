@@ -13,6 +13,7 @@ use App\Modules\Transaction\Http\Controllers\LoginTransactionController;
 use App\Modules\Transaction\Http\Controllers\CurrentTransactionController;
 use App\Modules\Transaction\Http\Controllers\ImportTransactionController;
 
+use App\Modules\Transaction\Http\Controllers\Dashboard\BalanceReportController;
 
 use App\Modules\Transaction\Http\Controllers\Category\ListCategoriesController;
 use App\Modules\Transaction\Http\Controllers\Category\CreateCategoryController;
@@ -50,6 +51,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::delete('/{category}', DeleteCategoryController::class)
             ->name('category.delete')
             ->can('delete', Category::class);
+    }); 
+
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('/balance-report', BalanceReportController::class)
+            ->name('dashboard.balance-report')
+            ->can('list', Transaction::class);
     }); 
 
     Route::get('/', ListTransactionsController::class)

@@ -47,7 +47,7 @@
           <button
             v-else
             type="button"
-            class="text-xs w-full block bg-gray-200 rounded py-3 px-2 italic"
+            class="mt-4 text-xs w-full block bg-gray-200 rounded py-3 px-2 italic"
             @click="isCreateCategoryShown = true"
           >
             No {{ form.type }} Categories yet. <br /><span class="underline"

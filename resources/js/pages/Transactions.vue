@@ -47,16 +47,6 @@
           <div class="flex md:items-center justify-end flex-1 gap-x-2">
             <Button
               variant="blank"
-              class="!border !border-solid !border-slate-800"
-              @click="isUploadModalShown = true"
-            >
-              <Icon
-                name="ArrowUpTrayIconOutline"
-                class="w-5 h-5 text-slate-900"
-              />
-            </Button>
-            <Button
-              variant="blank"
               class="!p-[6px] !border !border-solid !border-slate-800"
               @click="isFilterModalShown = true"
             >
@@ -65,6 +55,29 @@
                 class="w-6 h-6 text-slate-900"
               />
             </Button>
+
+            <Button
+              variant="blank"
+              class="!border !border-solid !border-slate-800"
+              @click="isUploadModalShown = true"
+            >
+              <Icon
+                name="ArrowUpTrayIconOutline"
+                class="w-5 h-5 text-slate-900"
+              />
+            </Button>
+            
+            <!-- <Button
+              variant="blank"
+              class="!border !border-solid !border-slate-800"
+              @click="isUploadModalShown = true"
+            >
+              <Icon
+                name="ArrowDownTrayIconOutline"
+                class="w-5 h-5 text-slate-900"
+              />
+            </Button> -->
+            
             <Button class="!p-2" @click="isCreateModalShown = true">
               <Icon name="PlusIcon" class="w-5 h-5" />
             </Button>

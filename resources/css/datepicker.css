@@ -1,0 +1,25 @@
+.dp__menu * {
+    @apply font-sans;
+    font-size: 12px !important;
+}
+
+.dp__main{
+    display: block;
+}
+.dp__overlay{
+    width: 100% !important;
+    height: auto !important;
+    padding: 0px 12px;
+}
+.dp__overlay_container{
+    height: auto !important;
+}
+.dp--menu--inner-stretched{
+    padding: 6px 0px;
+}
+.dp__menu_inner{
+    padding: 12px 16px;
+}
+.dp__cell_inner{
+    height: 30px;
+}

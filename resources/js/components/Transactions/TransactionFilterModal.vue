@@ -2,7 +2,7 @@
   <Modal
     :show="show"
     title="Transaction Filters"
-    wrapper-class="lg:max-w-[300px]"
+    wrapper-class="lg:!max-w-[350px]"
     @close="emit('close')"
   >
     <template #body-footer>
@@ -19,7 +19,46 @@
 
         <div>
           <label class="text-xs block font-semibold mb-1">Date</label>
-          <PopoverWrapper
+
+          <div class="relative z-[1]">
+            <template v-if="selectedView === 'daily'">
+              <Datepicker
+                v-model="selectedDay"
+                @update:model-value="
+                  (value) => {
+                    dateChanged(value, close)
+                  }
+                "
+              />
+            </template>
+
+            <template v-if="selectedView === 'monthly'">
+              <Datepicker
+                v-model="selectedMonth"
+                :month-picker="true"
+                @update:model-value="
+                  (value) => {
+                    dateChanged(value, close)
+                  }
+                "
+              />
+            </template>
+
+            <template v-if="selectedView === 'calendar'">
+              <Datepicker
+                v-model="selectedRange"
+                :range="true"
+                @update:model-value="
+                  (value) => {
+                    dateChanged(value, close)
+                  }
+                "
+              />
+            </template>
+          </div>
+          
+
+          <!-- <PopoverWrapper
             v-slot="{ close }"
             button-class="bg-white justify-between"
             panel-class="w-max"
@@ -59,7 +98,7 @@
                 "
               />
             </template>
-          </PopoverWrapper>
+          </PopoverWrapper> -->
         </div>
       </div>
 

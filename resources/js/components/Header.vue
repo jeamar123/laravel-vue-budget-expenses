@@ -28,8 +28,8 @@
                 :key="label"
                 :class="[
                   routeName === $route.name
-                    ? 'text-white underline'
-                    : 'text-slate-400 hover:text-white hover:underline',
+                    ? 'text-white'
+                    : 'text-slate-400 hover:text-white',
                   'block px-4 lg:px-6 py-3 text-sm w-full text-left',
                 ]"
                 @click="
@@ -58,8 +58,8 @@
             :key="label"
             :class="[
               routeName === $route.name
-                ? 'text-white underline'
-                : 'text-slate-400 hover:text-white hover:underline',
+                ? 'text-white'
+                : 'text-slate-400 hover:text-white',
               'px-4 py-3 text-xs w-full text-left',
             ]"
             :to="{ name: routeName }"

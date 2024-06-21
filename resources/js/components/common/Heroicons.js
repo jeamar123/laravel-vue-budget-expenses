@@ -26,6 +26,7 @@ import {
   AdjustmentsHorizontalIcon as AdjustmentsHorizontalIconOutline,
   FunnelIcon as FunnelIconOutline,
   ArrowUpTrayIcon as ArrowUpTrayIconOutline,
+  ArrowDownTrayIcon as ArrowDownTrayIconOutline,
   BanknotesIcon as BanknotesIconOutline,
 } from '@heroicons/vue/24/outline'
 
@@ -55,6 +56,7 @@ const Icon = {
   PencilIcon,
   BanknotesIcon,
   BanknotesIconOutline,
+  ArrowDownTrayIconOutline
 }
 
 export default Icon

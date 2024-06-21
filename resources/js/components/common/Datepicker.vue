@@ -3,7 +3,9 @@
     <VueDatePicker
       v-model="initialValue"
       input-class-name="border-0 rounded-none py-2 px-1 border-b border-form-border outline-none text-sm read-only:border-gray-200 read-only:text-gray-500 read-only:cursor-not-allowed transition-all bg-white text-slate-800 font-sans"
+      menu-class-name="!border !border-solid !border-form-border"
       inline
+      :teleport="true"
       :month-picker="monthPicker"
       :range="range"
       :auto-apply="true"

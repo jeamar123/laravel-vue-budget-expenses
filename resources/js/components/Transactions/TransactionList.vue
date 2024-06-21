@@ -126,7 +126,7 @@
         </div>
       </template>
 
-      <div v-if="!transactions.length" class="text-center px-4 py-3 text-xs">
+      <div v-if="!transactions.length" class="text-center px-4 py-12 text-xs">
         No items yet.
       </div>
     </div>

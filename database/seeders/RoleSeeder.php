@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Enums\Role;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role as SpatieRole;
 use Spatie\Permission\Models\Permission;
@@ -33,7 +32,6 @@ class RoleSeeder extends Seeder
     ];
 
     protected const ROLES = [
-        // Role::SUPER_ADMIN->value => [
         'super_admin' => [
             'user:view',
             'user:create',
@@ -56,7 +54,6 @@ class RoleSeeder extends Seeder
             'account:update',
             'account:delete',
         ],
-        // Role::USER->value => [
         'user' => [
             'user:view',
             'user:update',

@@ -8,6 +8,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Modules\Transaction\Models\Transaction;
 
 class Category extends Model
 {   
@@ -28,5 +32,10 @@ class Category extends Model
         return LogOptions::defaults()
                 ->logAll()
                 ->useLogName('category');
+    }
+
+    public function transaction(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
     }
 }

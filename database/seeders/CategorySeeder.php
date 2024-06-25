@@ -7,24 +7,26 @@ use App\Modules\Transaction\Models\Category;
 
 class CategorySeeder extends Seeder
 {
+    protected const USERS = [
+        ADMIN_ID,
+        SUPER_ADMIN_ID,
+        USER_ID
+    ];
+
     protected const CATEGORIES = [
         [
-            'user_id' => ADMIN_ID,
             'name' => 'food',
             'type' => 'expenses'
         ],
         [
-            'user_id' => ADMIN_ID,
             'name' => 'home',
             'type' => 'expenses'
         ],
         [
-            'user_id' => ADMIN_ID,
             'name' => 'salary',
             'type' => 'income'
         ],
         [
-            'user_id' => ADMIN_ID,
             'name' => 'allowance',
             'type' => 'income'
         ],
@@ -32,8 +34,14 @@ class CategorySeeder extends Seeder
 
     public function run()
     {
-        foreach (self::CATEGORIES as $category) {
-            Category::create($category);
+        
+        foreach (self::USERS as $user) {
+            foreach (self::CATEGORIES as $category) {
+                Category::create([
+                    'user_id' => $user,
+                    ...$category
+                ]);
+            }
         }
     }
 }

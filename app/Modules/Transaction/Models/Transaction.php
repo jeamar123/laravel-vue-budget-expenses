@@ -8,6 +8,10 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Modules\Transaction\Models\Category;
 
 class Transaction extends Model
 {   
@@ -21,7 +25,7 @@ class Transaction extends Model
         'user_id',
         'total',
         'source',
-        'category',
+        'category_id',
         'date'
     ];
 
@@ -30,5 +34,10 @@ class Transaction extends Model
         return LogOptions::defaults()
                 ->logAll()
                 ->useLogName('transaction');
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 }

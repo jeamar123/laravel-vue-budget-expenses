@@ -26,7 +26,12 @@ import { DonutChart } from '@/components/charts'
 const store = useStore()
 const dispatch = store.dispatch
 
-const total = computed(() => store.state.transactions.categories.reduce((total, item) => total + Number(item.total), 0))
+const total = computed(() =>
+  store.state.transactions.categories.reduce(
+    (total, item) => total + Number(item.total),
+    0,
+  ),
+)
 
 const transaction_categories = computed(() => {
   return {

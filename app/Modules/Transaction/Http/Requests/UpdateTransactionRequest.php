@@ -20,7 +20,7 @@ class UpdateTransactionRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:255'],
             'total' => ['required'],
             'source' => ['required'],
-            'category' => ['required'],
+            'category_id' => ['required'],
             'date' => ['required'],
         ];
     }

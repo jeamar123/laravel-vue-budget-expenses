@@ -29,7 +29,9 @@
           ></path>
         </svg>
       </slot>
-      <p v-if="showText" class="text-cyan-800 italic font-medium">{{ loadingText }}</p>
+      <p v-if="showText" class="text-cyan-800 italic font-medium">
+        {{ loadingText }}
+      </p>
     </div>
   </div>
 </template>
@@ -42,11 +44,11 @@ defineProps({
   },
   showText: {
     type: Boolean,
-    default: () => true
+    default: () => true,
   },
   loadingText: {
     type: String,
-    default: 'loading'
-  }
+    default: 'loading',
+  },
 })
 </script>

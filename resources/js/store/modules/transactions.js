@@ -56,7 +56,10 @@ const mutations = {
     if (payload.summary) state.summary = payload.summary
     if (payload.filters) {
       state.filters = payload.filters
-      localStorage.setItem('transaction_filters', JSON.stringify(payload.filters))
+      localStorage.setItem(
+        'transaction_filters',
+        JSON.stringify(payload.filters),
+      )
     }
     if (payload.categories) state.categories = payload.categories
   },

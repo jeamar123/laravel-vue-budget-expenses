@@ -18,18 +18,18 @@ class SummaryTransactionsController
         $transactions = Transaction::where('user_id', auth()->user()->id)
                                     ->orderBy('date')
                                     ->whereBetween('date', [$start, $end])
+                                    ->with('category')
                                     ->get();
         
         $income = 0;        
         $expenses = 0;        
 
-        foreach ($transactions as $value) {
-            $category = Category::where('name', $value->category)->first();
-            if($category){
-                if($category['type'] == 'income'){
-                    $income += $value->total;
+        foreach ($transactions as $transaction) {
+            if($transaction->category){
+                if($transaction->category['type'] == 'income'){
+                    $income += $transaction->total;
                 }else{
-                    $expenses += $value->total;
+                    $expenses += $transaction->total;
                 }
             }
         }

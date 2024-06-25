@@ -42,12 +42,8 @@ class ListTransactionsController
         $transactions = Transaction::where('user_id', auth()->user()->id)
                                         ->orderBy('date', 'desc')
                                         ->whereBetween('date', [$start, $end])
+                                        ->with('category')
                                         ->get();
-
-        foreach ($transactions as $transaction) {
-            $category = Category::where('name', $transaction['category'])->first();
-            $transaction['category'] = $category;
-        }
 
         $groupDates = $transactions->groupBy(function($transaction) {
             return Carbon::parse($transaction->date)->format('Y-m-d');

@@ -19,8 +19,7 @@ class TransactionFactory extends Factory
             'user_id' => User::factory(),
             'description' => fake()->name(),
             'total' => fake()->number(),
-            'source' => 'cash',
-            'category' => 'food',
+            'source' => 'bank account',
             'date' => fake()->dateTime(),
         ];
     }

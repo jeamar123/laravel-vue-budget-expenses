@@ -30,11 +30,14 @@
             v-if="categories.filter(({ type }) => type === form.type).length"
           >
             <SelectInput
-              v-model="form.category"
+              :value="form.category"
+              key-value="id"
+              key-label="name"
               button-class="!min-h-[38px]"
               label="Category"
               :items="categories.filter(({ type }) => type === form.type)"
-              :errors="form.errors?.category"
+              :errors="form.errors?.category_id"
+              @update:model-value="(value) => form.category_id = value"
             />
             <button
               type="button"
@@ -170,8 +173,10 @@ const form = ref({
   success: false,
 
   ...props.model,
-  category: props.model?.category?.name ?? null,
+  category: props.model?.category || null,
+  category_id: props.model?.category?.id || null
 })
+
 
 const submit = async () => {
   form.value.errors = {}

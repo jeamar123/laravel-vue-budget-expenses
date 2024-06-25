@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->integer('total');
             $table->string('source')->index();
-            $table->string('category')->index();
+            $table->uuid('category_id')->index()->constrained()->cascadeOnDelete();
             $table->dateTime('date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamps();
         });

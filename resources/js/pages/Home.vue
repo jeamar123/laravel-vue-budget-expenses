@@ -44,7 +44,7 @@
         </Button>
       </div>
     </div>
-    
+
     <div class="grid lg:grid-cols-12 gap-x-5 gap-y-2 lg:gap-y-6">
       <BalanceReport class="lg:col-span-4" />
       <IncomeReport class="lg:col-span-4" />
@@ -56,6 +56,7 @@
   </section>
 
   <TransactionFilterModal
+    v-if="isFilterModalShown"
     :show="isFilterModalShown"
     @close="isFilterModalShown = false"
     @dates-changed="
@@ -70,7 +71,10 @@
 <script setup>
 import { useStore } from 'vuex'
 import { Card, Button, Icon } from '@/components/common'
-import { TransactionCategories, TransactionFilterModal } from '@/components/Transactions'
+import {
+  TransactionCategories,
+  TransactionFilterModal,
+} from '@/components/Transactions'
 import {
   RecentTransactions,
   ExpensesCategories,
@@ -105,7 +109,7 @@ const dateChanged = (dates) => {
       ...filters.value,
       start: dates.start,
       end: dates.end,
-    }
+    },
   }
   commit('UPDATE_DASHBOARD_STATE', params)
   commit('UPDATE_TRANSACTIONS_STATE', params)

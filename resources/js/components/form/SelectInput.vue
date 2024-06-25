@@ -192,7 +192,7 @@ const getLabel = computed(() => {
   return value || null
 })
 
-const selectedValue = ref(props.modelValue)
+const selectedValue = ref(props.modelValue || props.value)
 
 const onChange = (value) => {
   emit(
@@ -203,10 +203,10 @@ const onChange = (value) => {
 
 const isItemObject = (value) => typeof value === 'object'
 
-watch(
-  () => props.modelValue,
-  async (newValue) => {
-    selectedValue.value = newValue
-  },
-)
+// watch(
+//   () => props.modelValue,
+//   async (newValue) => {
+//     selectedValue.value = newValue
+//   },
+// )
 </script>

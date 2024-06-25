@@ -23,17 +23,21 @@ class ImportTransactionAction
         $success = [];
         $failed = [];
 
+        $category = null;
+
         foreach ($collection as $index => $transaction) {
             if(isset($transaction['Category'])){
 
                 $checkCategory = Category::where('name', $transaction['Category'])->first();
 
                 if(!$checkCategory){
-                    Category::create([
+                    $category = Category::create([
                         'name' => $transaction['Category'],
                         'type' => isset($transaction['Type']) ? $transaction['Type'] : 'expenses',
                         'user_id' => $this->auth->user()->id,
                     ]);
+                }else{
+                    $category = $checkCategory;
                 }
             }
 
@@ -42,7 +46,8 @@ class ImportTransactionAction
                   'description' => isset($transaction['Description']) ? $transaction['Description'] : '', 
                   'total' => isset($transaction['Total']) ? $transaction['Total'] : '', 
                   'source' => isset($transaction['Source']) ? $transaction['Source'] : '', 
-                  'category' => isset($transaction['Category']) ? $transaction['Category'] : '', 
+                  'category' => $category, 
+                  'category_id' => $category->id, 
                   'date' => isset($transaction['Date']) ? $transaction['Date'] : '', 
                 ]);
                 

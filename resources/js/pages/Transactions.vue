@@ -8,7 +8,6 @@
       </div>
 
       <div class="lg:w-9/12 h-max">
-        
         <div
           class="px-2 md:px-0 mb-3 flex flex-row items-start md:items-center justify-between gap-y-2 gap-x-2"
         >
@@ -67,7 +66,7 @@
                 class="w-5 h-5 text-slate-900"
               />
             </Button>
-            
+
             <!-- <Button
               variant="blank"
               class="!border !border-solid !border-slate-800"
@@ -78,7 +77,7 @@
                 class="w-5 h-5 text-slate-900"
               />
             </Button> -->
-            
+
             <Button class="!p-2" @click="isCreateModalShown = true">
               <Icon name="PlusIcon" class="w-5 h-5" />
             </Button>
@@ -108,12 +107,13 @@
           "
         />
 
-        <Loading v-if="isLoading" placement="internal" :show-text="false"/>
+        <Loading v-if="isLoading" placement="internal" :show-text="false" />
       </div>
     </div>
   </section>
 
   <TransactionFilterModal
+    v-if="isFilterModalShown"
     :show="isFilterModalShown"
     @close="isFilterModalShown = false"
     @dates-changed="
@@ -220,6 +220,7 @@ onMounted(async () => {
 const getTransactions = async () => {
   await dispatch('REQUEST_GET_TRANSACTIONS_SUMMARY')
   await dispatch('REQUEST_GET_TRANSACTIONS')
+  dispatch('REQUEST_GET_TRANSACTIONS_BY_CATEGORY')
   isLoading.value = false
 }
 
@@ -229,7 +230,7 @@ const dateChanged = (dates) => {
       ...filters.value,
       start: dates.start,
       end: dates.end,
-    }
+    },
   })
   getTransactions()
 }

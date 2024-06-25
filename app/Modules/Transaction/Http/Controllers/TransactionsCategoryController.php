@@ -20,6 +20,7 @@ class TransactionsCategoryController
         $transactions = Transaction::where('user_id', auth()->user()->id)
                                     ->orderBy('date')
                                     ->whereBetween('date', [$start, $end])
+                                    ->with('category')
                                     ->get();
         
         $categories = Category::where('user_id', auth()->user()->id)
@@ -30,16 +31,8 @@ class TransactionsCategoryController
         foreach ($categories as $category) {
             array_push($result, [
                 'name' => $category['name'],
-                'total' => 0
+                'total' => $transactions->where('category.name', $category['name'])->sum('total')
             ]);
-        }
-
-        foreach ($transactions as $transaction) {
-            foreach ($result as $index => $item) {
-                if($item['name'] === $transaction['category']){
-                    $result[$index]['total'] += $transaction['total'];
-                }
-            }
         }
 
         return response()->json([

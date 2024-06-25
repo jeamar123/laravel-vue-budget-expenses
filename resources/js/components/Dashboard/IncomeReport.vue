@@ -22,7 +22,7 @@
     </div>
 
     <div v-else class="flex min-h-[170px] items-center">
-      <Loading placement="internal" :show-text="false"/>
+      <Loading placement="internal" :show-text="false" />
     </div>
   </Card>
 </template>

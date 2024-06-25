@@ -56,7 +56,7 @@ const Icon = {
   PencilIcon,
   BanknotesIcon,
   BanknotesIconOutline,
-  ArrowDownTrayIconOutline
+  ArrowDownTrayIconOutline,
 }
 
 export default Icon

@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Modules\User\Models\User;
-use App\Enums\Role;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role as SpatieRole;

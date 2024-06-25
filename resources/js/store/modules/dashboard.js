@@ -29,7 +29,10 @@ const mutations = {
   async [UPDATE_DASHBOARD_STATE](state, payload) {
     if (payload.filters) {
       state.filters = payload.filters
-      localStorage.setItem('transaction_filters', JSON.stringify(payload.filters))
+      localStorage.setItem(
+        'transaction_filters',
+        JSON.stringify(payload.filters),
+      )
     }
     if (payload.balanceReport) state.balanceReport = payload.balanceReport
   },

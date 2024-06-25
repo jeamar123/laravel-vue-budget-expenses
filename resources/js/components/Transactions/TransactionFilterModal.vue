@@ -44,7 +44,6 @@
               />
             </template>
           </div>
-          
 
           <!-- <PopoverWrapper
             v-slot="{ close }"
@@ -99,7 +98,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import {
   Button,
   Modal,
@@ -144,6 +143,25 @@ const selectedMonth = ref({
   year: Number(format(new Date(), 'yyyy')),
 })
 const selectedRange = ref([new Date(), new Date()])
+
+onMounted(() => {
+  initDatesStorage()
+})
+
+const initDatesStorage = () => {
+  let datesStorage = JSON.parse(
+    localStorage.getItem('transaction_filter_modal'),
+  )
+  if (datesStorage) {
+    selectedView.value = datesStorage.view ?? 'monthly'
+    selectedDay.value = datesStorage.day ?? new Date()
+    selectedMonth.value = datesStorage.month ?? {
+      month: Number(format(new Date(), 'MM')) - 1,
+      year: Number(format(new Date(), 'yyyy')),
+    }
+    selectedRange.value = datesStorage.range ?? [new Date(), new Date()]
+  }
+}
 
 // When Datepicker value is change, sync other view dates
 const dateChanged = (date) => {
@@ -199,6 +217,17 @@ const emitChanges = () => {
     dates.start = format(selectedRange.value[0], 'yyyy-MM-dd')
     dates.end = format(selectedRange.value[1], 'yyyy-MM-dd')
   }
+
+  localStorage.setItem(
+    'transaction_filter_modal',
+    JSON.stringify({
+      view: selectedView.value,
+      day: selectedDay.value,
+      month: selectedMonth.value,
+      range: selectedRange.value,
+    }),
+  )
+
   emit('dates-changed', dates)
 }
 </script>

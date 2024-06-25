@@ -1,23 +1,23 @@
 .dp__menu * {
-    @apply font-sans;
-    font-size: 12px !important;
+  @apply font-sans;
+  font-size: 12px !important;
 }
 
-.dp__main{
-    display: block;
+.dp__main {
+  display: block;
 }
-.dp__overlay{
-    width: 100% !important;
+.dp__overlay {
+  width: 100% !important;
 }
-.dp__selection_grid_header{
-    padding: 0px 12px;
+.dp__selection_grid_header {
+  padding: 0px 12px;
 }
-.dp--menu--inner-stretched{
-    padding: 6px 0px;
+.dp--menu--inner-stretched {
+  padding: 6px 0px;
 }
-.dp__menu_inner{
-    padding: 12px 16px;
+.dp__menu_inner {
+  padding: 12px 16px;
 }
-.dp__cell_inner{
-    height: 30px;
+.dp__cell_inner {
+  height: 30px;
 }

@@ -7,29 +7,28 @@ use App\Modules\User\Models\Account;
 
 class AccountSeeder extends Seeder
 {
+    protected const USERS = [
+        ADMIN_ID,
+        SUPER_ADMIN_ID,
+        USER_ID
+    ];
+    
     protected const ACCOUNTS = [
-        [
-            'user_id' => ADMIN_ID,
-            'name' => 'cash',
-        ],
-        [
-            'user_id' => ADMIN_ID,
-            'name' => 'bank account',
-        ],
-        [
-            'user_id' => ADMIN_ID,
-            'name' => 'credit card',
-        ],
-        [
-            'user_id' => ADMIN_ID,
-            'name' => 'debit card',
-        ],
+        'cash',
+        'bank account',
+        'credit card',
+        'debit card',
     ];
 
     public function run()
     {
-        foreach (self::ACCOUNTS as $account) {
-            Account::create($account);
+        foreach (self::USERS as $user) {
+            foreach (self::ACCOUNTS as $account) {
+                Account::create([
+                    'user_id' => $user,
+                    'name' => $account,
+                ]);
+            }
         }
     }
 }

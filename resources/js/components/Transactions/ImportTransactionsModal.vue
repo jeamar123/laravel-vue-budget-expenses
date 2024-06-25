@@ -3,12 +3,7 @@
     :show="show"
     title="Import Transactions"
     wrapper-class="lg:max-w-[600px]"
-    @close="
-      () => {
-        resetFileUploadModal()
-        emit('close')
-      }
-    "
+    @close="close"
   >
     <template #body-footer>
       <div class="space-y-2 px-6 py-4">
@@ -45,7 +40,7 @@
       </div>
 
       <div class="flex items-center justify-end gap-x-4 p-4">
-        <Button variant="blank" @click="emit('close')"> Cancel </Button>
+        <Button variant="blank" @click="close"> Cancel </Button>
         <Button
           type="button"
           :variant="!form.file ? 'disabled' : 'primary'"
@@ -89,12 +84,19 @@ const upload = async () => {
     dispatch('SHOW_NOTIF_ALERT', {
       message: `${res.data.sucessful.length} successful imports. ${res.data.failed.length} failed.`,
     })
+    resetFileUploadModal()
     emit('success')
   }
 }
 
 const resetFileUploadModal = () => {
   form.value.file = null
+  file.value = null
   document.getElementById('file').value = ''
+}
+
+const close = () => {
+  resetFileUploadModal()
+  emit('close')
 }
 </script>

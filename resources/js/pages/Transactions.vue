@@ -125,14 +125,10 @@
   />
 
   <CreateTransactionModal
+    v-if="isCreateModalShown"
     :show="isCreateModalShown"
     @close="isCreateModalShown = false"
-    @success="
-      () => {
-        getTransactions()
-        isCreateModalShown = false
-      }
-    "
+    @success="getTransactions()"
   />
 
   <UpdateTransactionModal

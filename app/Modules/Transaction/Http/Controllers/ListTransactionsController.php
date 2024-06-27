@@ -32,7 +32,6 @@ class ListTransactionsController
             return response()->json([
                 'headers' => $table_headers,
                 'data' => $transactions,
-                'test' => 'sdfdsf'
             ], 200);
         }
 
@@ -63,7 +62,7 @@ class ListTransactionsController
 
         return response()->json([
             'headers' => $table_headers,
-            'data' => $groupByDay
+            'data' => $groupByDay,
         ], 200);
     }
 }   

@@ -26,35 +26,37 @@ class ImportTransactionAction
         $category = null;
 
         foreach ($collection as $index => $transaction) {
-            if(isset($transaction['Category'])){
+            if(!empty($collection[$index])){
+                if(isset($transaction['Category'])){
 
-                $checkCategory = Category::where('name', $transaction['Category'])->first();
+                    $checkCategory = Category::where('name', $transaction['Category'])->first();
 
-                if(!$checkCategory){
-                    $category = Category::create([
-                        'name' => $transaction['Category'],
-                        'type' => isset($transaction['Type']) ? $transaction['Type'] : 'expenses',
-                        'user_id' => $this->auth->user()->id,
-                    ]);
-                }else{
-                    $category = $checkCategory;
+                    if(!$checkCategory){
+                        $category = Category::create([
+                            'name' => $transaction['Category'],
+                            'type' => isset($transaction['Type']) ? $transaction['Type'] : 'expenses',
+                            'user_id' => $this->auth->user()->id,
+                        ]);
+                    }else{
+                        $category = $checkCategory;
+                    }
                 }
-            }
 
-            $upload = Transaction::create([
-                  'user_id' => $this->auth->user()->id,
-                  'description' => isset($transaction['Description']) ? $transaction['Description'] : '', 
-                  'total' => isset($transaction['Total']) ? $transaction['Total'] : '', 
-                  'source' => isset($transaction['Source']) ? $transaction['Source'] : '', 
-                  'category' => $category, 
-                  'category_id' => $category->id, 
-                  'date' => isset($transaction['Date']) ? $transaction['Date'] : '', 
-                ]);
-                
-            if($upload){
-                array_push($success, 'Row ' . ($index+1) . ' sucessfully uploaded.');
-            }else{
-                array_push($failed, 'Row ' . ($index+1) . ' upload failed.');
+                $upload = Transaction::create([
+                    'user_id' => $this->auth->user()->id,
+                    'description' => isset($transaction['Description']) ? $transaction['Description'] : '', 
+                    'total' => isset($transaction['Total']) ? $transaction['Total'] : '', 
+                    'source' => isset($transaction['Source']) ? $transaction['Source'] : '', 
+                    'category' => $category, 
+                    'category_id' => $category->id, 
+                    'date' => isset($transaction['Date']) ? $transaction['Date'] : '', 
+                    ]);
+                    
+                if($upload){
+                    array_push($success, 'Row ' . ($index+1) . ' sucessfully uploaded.');
+                }else{
+                    array_push($failed, 'Row ' . ($index+1) . ' upload failed.');
+                }
             }
         }
 

@@ -18,14 +18,13 @@ class ListBudgetsController
     {
         $categories = Category::where('user_id', auth()->user()->id)
                                     ->where('type', 'expenses')
-                                    ->orWhereNull('user_id')
                                     ->orderBy('name')
                                     ->get();
         
         foreach ($categories as $category) {
             $category['spent'] = abs(
                                     Transaction::where('user_id', auth()->user()->id)
-                                        ->where('category', $category['name'])
+                                        ->where('category_id', $category['id'])
                                         ->sum('total')
                                 );
             $category['remaining'] = ($category['budget'] - $category['spent']);
@@ -51,7 +50,8 @@ class ListBudgetsController
                 );
 
         return response()->json([
-            ...$result,
+            // ...$result,
+            'data' => BudgetResource::collection($categories)
         ], 200);
     }
 }   

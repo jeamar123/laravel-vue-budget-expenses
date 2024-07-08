@@ -63,6 +63,7 @@ class ListTransactionsController
         return response()->json([
             'headers' => $table_headers,
             'data' => $groupByDay,
+            'transactions' => $transactions
         ], 200);
     }
 }   

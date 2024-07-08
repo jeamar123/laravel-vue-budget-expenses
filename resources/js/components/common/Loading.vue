@@ -9,7 +9,7 @@
       class="rounded-md px-6 py-3 text-center text-xs"
       :class="{
         'bg-transparent': placement === 'external',
-        'bg-white': placement === 'internal',
+        '': placement === 'internal',
       }"
     >
       <slot name="icon">

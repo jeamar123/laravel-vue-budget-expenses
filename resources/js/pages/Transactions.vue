@@ -4,7 +4,7 @@
       <div class="flex-1 flex flex-col space-y-3 shrink-0 lg:pt-[50px]">
         <TransactionSummary />
 
-        <TransactionCategories />
+        <!-- <TransactionCategories /> -->
       </div>
 
       <div class="lg:w-9/12 h-max">
@@ -32,14 +32,6 @@
                   {{ format(filters['start'], 'MMM dd, yyyy') }} -
                   {{ format(filters['end'], 'MMM dd, yyyy') }}
                 </div>
-                <!-- <template
-                  v-for="key in Object.keys(filters).filter((key) => key !== 'start' && key !== 'end')"
-                  :key="key"
-                >
-                  <div class="bg-gray-200 rounded py-[2px] px-2 text-[11px]">
-                    {{ filters[key] }}
-                  </div>
-                </template> -->
               </div>
             </div>
           </div>

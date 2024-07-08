@@ -12,9 +12,11 @@
         @close="emit('close')"
         @success="formSuccess"
       />
-      
+
       <div v-else class="pt-10 pb-16">
-        <Heading as="h3" class="text-center">Do you want to add a new transaction?</Heading>
+        <Heading as="h3" class="text-center"
+          >Do you want to add a new transaction?</Heading
+        >
 
         <div class="mt-3 flex items-center justify-center gap-x-3">
           <Button variant="outline" class="w-[100px]" @click="emit('close')">

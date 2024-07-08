@@ -37,7 +37,7 @@
               label="Category"
               :items="categories.filter(({ type }) => type === form.type)"
               :errors="form.errors?.category_id"
-              @update:model-value="(value) => form.category_id = value"
+              @update:model-value="(value) => (form.category_id = value)"
             />
             <button
               type="button"
@@ -174,9 +174,8 @@ const form = ref({
 
   ...props.model,
   category: props.model?.category || null,
-  category_id: props.model?.category?.id || null
+  category_id: props.model?.category?.id || null,
 })
-
 
 const submit = async () => {
   form.value.errors = {}

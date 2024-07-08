@@ -1,7 +1,7 @@
 <template>
   <div>
     <Card
-      class="!px-2 !py-3 md:!px-4 md:!py-3 flex items-center gap-x-5 md:!bg-gray-200"
+      class="pl-2 !pr-2 !py-2 md:!pr-4 flex items-center gap-x-4 md:!bg-[#e9e9e9]"
     >
       <div class="shrink-0">
         <Checkbox
@@ -26,12 +26,11 @@
         <span class="hidden md:block">Actions</span>
       </div>
     </Card>
-    <!-- overflow-y-auto lg:max-h-[calc(100vh-172px)]  -->
     <div class="md:py-2 md:space-y-2 mr-[-3px] pr-[3px]">
       <template v-for="transaction in transactions" :key="transaction.date">
         <div>
           <Card
-            class="!px-2 !py-3 md:!px-4 md:!py-3 flex items-center gap-x-5 cursor-pointer !bg-slate-200 mb-1"
+            class="pl-2 !pr-2 !py-1 md:!pr-4 flex items-center gap-x-4 cursor-pointer !bg-[#f2f2f2] mb-1"
             @click="transaction.show = !transaction.show"
           >
             <div class="shrink-0">
@@ -53,7 +52,7 @@
                 "
               />
             </div>
-            <div class="font-semibold flex-1">
+            <div class="font-semibold flex-1 text-xs">
               {{ format(transaction.date, 'MMM dd, yyyy') }}
             </div>
             <div class="shrink-0">
@@ -67,7 +66,7 @@
             <Card
               v-for="item in transaction.items"
               :key="item.id"
-              class="!px-2 !py-3 md:!p-4 flex items-start gap-x-5"
+              class="!pl-2 !pr-2 !py-2 md:!pr-4 flex items-start gap-x-4 text-[13px]"
             >
               <div class="shrink-0">
                 <Checkbox
@@ -85,7 +84,7 @@
               >
                 <div>{{ item.description }}</div>
                 <div
-                  class="font-medium"
+                  class="font-medium text-opacity-80"
                   :class="
                     item.category?.type === 'expenses'
                       ? 'text-red-600'
@@ -96,10 +95,16 @@
                     `${item.category?.type === 'expenses' ? '-' : ''}${formatNumber(item.total)}`
                   }}
                 </div>
-                <div class="capitalize">{{ item.source }}</div>
                 <div>
                   <span
-                    class="inline-block border border-slate-400 py-[1px] px-1 rounded text-xs"
+                    class="inline-block bg-blue-300 py-[1px] px-[6px] rounded text-xs"
+                  >
+                    {{ item.source }}
+                  </span>
+                </div>
+                <div>
+                  <span
+                    class="inline-block bg-indigo-300 py-[1px] px-[6px] rounded text-xs"
                   >
                     {{ item.category?.name || 'Uncategorized' }}
                   </span>

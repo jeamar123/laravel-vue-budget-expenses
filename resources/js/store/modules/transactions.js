@@ -25,6 +25,7 @@ const filterObj =
     : null
 
 const state = {
+  transactions: [],
   items: [],
   pagination: {
     total: 1,
@@ -51,6 +52,7 @@ const getters = {}
 const mutations = {
   async [UPDATE_TRANSACTIONS_STATE](state, payload) {
     if (payload.items) state.items = payload.items
+    if (payload.transactions) state.transactions = payload.transactions
     if (payload.pagination) state.pagination = payload.pagination
     if (payload.headers) state.headers = payload.headers
     if (payload.summary) state.summary = payload.summary
@@ -96,6 +98,7 @@ const actions = {
           // console.log(res)
           commit(UPDATE_TRANSACTIONS_STATE, {
             items: res.data.data.map((item) => ({ ...item, show: true })),
+            transactions: res.data.transactions,
             pagination: res.data.meta,
             headers: res.data.headers,
           })

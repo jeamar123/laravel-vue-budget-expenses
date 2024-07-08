@@ -19,14 +19,6 @@
               {{ format(filters['start'], 'MMM dd, yyyy') }} -
               {{ format(filters['end'], 'MMM dd, yyyy') }}
             </div>
-            <!-- <template
-              v-for="key in Object.keys(filters).filter((key) => key !== 'start' && key !== 'end')"
-              :key="key"
-            >
-              <div class="bg-gray-200 rounded py-[2px] px-2 text-[11px]">
-                {{ filters[key] }}
-              </div>
-            </template> -->
           </div>
         </div>
       </div>
@@ -52,6 +44,7 @@
 
       <RecentTransactions class="lg:col-span-5" />
       <ExpensesCategories class="lg:col-span-4" />
+      <TransactionCategories class="lg:col-span-4" />
     </div>
   </section>
 

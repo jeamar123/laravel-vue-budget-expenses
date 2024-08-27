@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import Header from '@/components/Header.vue'
 import { NotificationAlert } from '@/components/common'
 import { useStore } from 'vuex'
@@ -27,6 +27,11 @@ import { UPDATE_NOTIF_ALERT_STATE } from '@/store/index'
 
 const store = useStore()
 const commit = store.commit
+const dispatch = store.dispatch
 
 const notifAlert = computed(() => store.state.notifAlert)
+
+onMounted(() => fetchUser())
+
+const fetchUser = () => dispatch('FETCH_CURRENT_USER')
 </script>

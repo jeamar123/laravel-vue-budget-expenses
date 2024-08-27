@@ -18,6 +18,7 @@ class UserResource extends JsonResource
             'role' => $this->resource->role,
             'status' => $this->resource->status,
             'image' => $this->resource->image,
+            'currency_code' => $this->resource->currency_code,
             'created_at' => $this->resource->created_at,
         ];
     }

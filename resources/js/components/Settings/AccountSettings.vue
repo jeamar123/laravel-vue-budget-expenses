@@ -33,6 +33,17 @@
         :errors="form.errors?.username"
       />
 
+      <SelectInput
+        v-model="form.currency_code"
+        name="currency_code"
+        label="Currency Code*"
+        :items="currency_codes"
+        key-value="code"
+        key-label="name"
+        :errors="form.errors?.currency_code"
+        search
+      />
+
       <div class="w-full !mt-5">
         <small class="text-red-500 block mb-2" v-text="form.errors.message" />
         <Button
@@ -55,8 +66,9 @@
 <script setup>
 import { ref, computed, onMounted, reactive } from 'vue'
 import { Card, Button, Heading, Icon } from '@/components/common'
-import { TextInput } from '@/components/form'
+import { TextInput, SelectInput } from '@/components/form'
 import { useStore } from 'vuex'
+import { currency_codes } from '@/composables/currency'
 
 const props = defineProps({
   model: {
@@ -73,6 +85,7 @@ const form = ref({
   last_name: props.model?.last_name ?? null,
   email: props.model?.email ?? null,
   username: props.model?.username ?? null,
+  currency_code: props.model?.currency_code ?? null,
   errors: {},
   success: '',
 })

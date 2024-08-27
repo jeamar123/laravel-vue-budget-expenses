@@ -17,7 +17,7 @@
         v-model="selectedValue"
         as="div"
         class="min-w-16 cursor-pointer"
-        :by="isItemObject(selectedValue) ? keyValue : ''"
+        :by="isItemObject(selectedValue) || isArrayOfObjects ? keyValue : undefined"
         :disabled="readOnly"
         @update:model-value="onChange"
       >
@@ -57,9 +57,16 @@
                   : 'bottom-10',
               ]"
             >
+              <div v-if="search">
+                <input
+                  v-model="searchText"
+                  class="w-full rounded border border-form-border px-2 py-2 outline-none text-sm read-only:border-gray-200 read-only:text-gray-500 read-only:cursor-not-allowed block autofill:!bg-white transition-all bg-white text-slate-800"
+                  placeholder="Search"
+                />
+              </div>
               <ListboxOption
-                v-for="item in items"
-                :key="item.id"
+                v-for="item in filteredItems"
+                :key="isItemObject(selectedValue) || isArrayOfObjects ? item[keyValue] : item"
                 v-slot="{ active }"
                 :value="item"
                 as="template"
@@ -76,7 +83,11 @@
                     'relative select-none p-2 capitalize border-b outline-none',
                   ]"
                 >
-                  {{ isItemObject(item) ? item[keyLabel] : item }}
+                  {{
+                    isItemObject(item) || isArrayOfObjects
+                      ? item[keyLabel]
+                      : item
+                  }}
                 </li>
               </ListboxOption>
             </ListboxOptions>
@@ -175,15 +186,26 @@ const props = defineProps({
     type: String,
     default: 'bottom', // top, bottom
   },
+  search: {
+    type: Boolean,
+    default: () => false,
+  },
 })
 
 const emit = defineEmits(['update:model-value', 'change'])
+
+const isArrayOfObjects = computed(() =>
+  props.items.some((item) => typeof item === 'object'),
+)
 
 const getLabel = computed(() => {
   let value = selectedValue.value
 
   if (value && isItemObject(value)) {
     return value[props.keyLabel]
+  }
+  if (value && isArrayOfObjects.value) {
+    return props.items.find(item => item[props.keyValue] === value)[props.keyLabel]
   }
   if (!value && props.placeholder) {
     return props.placeholder
@@ -192,7 +214,18 @@ const getLabel = computed(() => {
   return value || null
 })
 
+const filteredItems = computed(() => {
+  if (searchText.value) {
+    return props.items.filter(({ name }) =>
+      name.toLowerCase().includes(searchText.value.toLowerCase()),
+    )
+  }
+
+  return props.items
+})
+
 const selectedValue = ref(props.modelValue || props.value)
+const searchText = ref('')
 
 const onChange = (value) => {
   emit(
@@ -202,7 +235,6 @@ const onChange = (value) => {
 }
 
 const isItemObject = (value) => typeof value === 'object'
-
 // watch(
 //   () => props.modelValue,
 //   async (newValue) => {

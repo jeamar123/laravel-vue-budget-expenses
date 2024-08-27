@@ -18,7 +18,9 @@ const state = {
   isLoading: false,
 }
 
-const getters = {}
+const getters = {
+  token: (state) => () => state.user,
+}
 
 const mutations = {
   async [UPDATE_AUTH_STATE](state, payload) {

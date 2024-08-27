@@ -19,6 +19,7 @@ class UpdateUserSettingsRequest extends FormRequest
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
+            'currency_code' => ['required'],
             'email' => ['required', 'email', Rule::unique(User::class, 'email')->ignore($this->user()->id)],
         ];
     }

@@ -60,10 +60,11 @@
               <div v-if="search">
                 <input
                   v-model="searchText"
-                  class="w-full rounded border border-form-border px-2 py-2 outline-none text-sm read-only:border-gray-200 read-only:text-gray-500 read-only:cursor-not-allowed block autofill:!bg-white transition-all bg-white text-slate-800"
+                  class="w-full bg-gray-50 border-b border-form-border px-2 py-2 outline-none text-sm read-only:border-gray-200 read-only:text-gray-500 read-only:cursor-not-allowed block autofill:!bg-white transition-all text-slate-800"
                   placeholder="Search"
                 />
               </div>
+              <p v-if="!filteredItems.length" class="text-center italic py-2 text-gray-500">No items</p>
               <ListboxOption
                 v-for="item in filteredItems"
                 :key="isItemObject(selectedValue) || isArrayOfObjects ? item[keyValue] : item"

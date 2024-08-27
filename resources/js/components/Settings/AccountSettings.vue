@@ -93,6 +93,7 @@ const form = ref({
 const updateSettings = async () => {
   const { status, data } = await dispatch('UPDATE_ACCOUNT_SETTINGS', form.value)
   if (status === 200) {
+    dispatch('FETCH_CURRENT_USER')
     form.value.success = true
     dispatch('SHOW_NOTIF_ALERT', { message: 'Changes saved.' })
   } else {
